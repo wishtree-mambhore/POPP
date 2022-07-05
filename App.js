@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
 import React,{useEffect} from 'react'
-import SplashScreen from 'react-native-splash-screen';  // import library from react native version 3.3.0
+import SplashScreen from 'react-native-splash-screen';  // import library from react-native-splash-screen
 const App = () => {
   useEffect(() => {
    SplashScreen.hide();
