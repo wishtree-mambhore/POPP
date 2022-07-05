@@ -1,86 +1,60 @@
 # UNDP POPP 
-
-One Paragraph of project description goes here
-
+United Nations Development Programme (UNDP)--> Programme and Operations Policies and Procedures (POPP)
 ## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+The purpose of this project is to produce a mobile app for iOS and Android that displays an
+up-to-date POPP content with the ability to get customized notifications based on user's
+preferences on areas of interest. The current POPP website content is hosted at
+https://popp.undp.org
 
 ### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
+Software
+Visual Studio
+Android Studio
 
 ### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+npm 8.5.5
+node v16.15.0
+react-native-splash-screen
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
 
 ### Break down into end to end tests
 
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ### And coding style tests
 
-Explain what these tests test and why
 
-```
-Give an example
-```
+
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+
+* [React Native](https://reactnative.dev/docs/environment-setup) 
+
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
+npm -->8.5.5
+node-->v16.15.0
+react-native-splash-screen-->3.3.0
+visual studio--> 1.68.1
+Android minSdkVersion --> 21
+ios 12.4
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-splintNumber(ex splint1) - released modules
 
 ## Authors
 
-* **Wishtree user** - *Initial work* - [Project name](Project link)
+* **Wishtree user** - [UNDP]
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/wishtree-adeshmukh) who participated in this project.
 
 ## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 
