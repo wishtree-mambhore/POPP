@@ -8,12 +8,20 @@ https://popp.undp.org
 
 ### Prerequisites
 Software
-Visual Studio
-Android Studio
+
+   Visual Studio
+
+
+   Android Studio
+
 
 ### Installing
 npm 8.5.5
+
+
 node v16.15.0
+
+
 react-native-splash-screen
 
 ## Running the tests
@@ -41,10 +49,19 @@ react-native-splash-screen
 
 ## Versioning
 npm -->8.5.5
+
+
 node-->v16.15.0
+
 react-native-splash-screen-->3.3.0
+
+
 visual studio--> 1.68.1
+
+
 Android minSdkVersion --> 21
+
+
 ios 12.4
 
 
