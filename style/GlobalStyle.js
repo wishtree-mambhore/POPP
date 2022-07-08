@@ -17,7 +17,7 @@ const css = StyleSheet.create({
     fontSize: 23,
     color: Colors.LIGHT,
     padding: 10,
-    fontWeight:'400'
+    fontWeight: '400',
   },
   headingTextView: {
     backgroundColor: Colors.PRIMARY,
@@ -32,11 +32,11 @@ const css = StyleSheet.create({
     padding: 15,
   },
   image: {
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
   },
   accordianContainer: {paddingHorizontal: 20, paddingVertical: 5},
-  accordianText: {padding: 7, fontSize: 18, color: 'grey', fontWeight: '400'},
+  accordianText: {padding: 7, fontSize: 15, color: 'grey', fontWeight: '400'},
   accordianHorizontal: {
     height: 4,
     borderBottomColor: 'grey',

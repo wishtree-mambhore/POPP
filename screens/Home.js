@@ -18,6 +18,8 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import axios from 'axios';
 const Home = () => {
   const [activeSections, setActiveSections] = useState([]);
+  const [isLoading, setisLoading] = useState(false);
+
   // dummy data
   const list = [
     {
@@ -206,22 +208,29 @@ const Home = () => {
     },
   ];
 
-   const [policyData,setPolicyData]=useState([])
-  //  const fetchData=()=>
-  //  {
-  //   axios.get('https://popp.undp.org//SitePages/POPPJSONData.aspx?RequestType=APPDATA').then((res)=>
-  //   {
-  //     var temp=res.data;
-  //     setPolicyData(temp)
-  //     console.log('policy --> ', policyData);
-  //   })
-  //  }
+  const [policyData, setPolicyData] = useState([]);
+  const fetchData = async () => {
+    let isMounted = true;
+    const res = await axios
+      .get(
+        'https://popp.undp.org//SitePages/POPPJSONData.aspx?RequestType=APPDATA',
+      )
+      .then(res => {
+        if (isMounted)
+        {
+          setPolicyData(res.data);
+        setisLoading(false);
+        console.log(policyData)
+        } 
+      });
+      return () => {
+        isMounted = false;
+      };
+  };
 
-  //  useEffect(() => {
-  //    fetchData();
-   
-  //  }, [])
-   
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   // this function render title of the data
   const _renderHeader = (sections, _, isActive) => {
@@ -251,10 +260,10 @@ const Home = () => {
   const _renderContent = (sections, _, isActive) => {
     return (
       <View>
-        {sections.photos.map(item => {
+        {sections.chapters.map(item => {
           return (
             <View style={css.accordianContainer}>
-              <Text style={css.accordianText}>{item.url}</Text>
+              <Text style={css.accordianText}>{item.name}</Text>
               <View style={css.accordianHorizontal} />
             </View>
           );
@@ -271,16 +280,16 @@ const Home = () => {
         </View>
 
         <View>
-          {list.map(item => (
+          {policyData.map(item => (
             <TouchableOpacity
-              key={item.id}
-              onPress={() => setActiveSections([item.id])}>
-              {item.photos.map(item => {
+              key={item.termID}
+              onPress={() => setActiveSections([item.termID])}>
+              {item.chapters.map(item => {
                 <View>
                   <TouchableOpacity key={item}>
-                    <Text>{item.url}</Text>
+                    <Text>{item.name}</Text>
                   </TouchableOpacity>
-                </View>;
+                </View>
               })}
             </TouchableOpacity>
           ))}
@@ -288,7 +297,7 @@ const Home = () => {
 
         <Accordion
           key={list}
-          sections={list}
+          sections={policyData}
           activeSections={activeSections}
           //  renderSectionTitle={_renderSectionTitle}
           renderHeader={_renderHeader}
