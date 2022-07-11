@@ -5,6 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import {store} from './redux/store'
+import Navigation from './screens/navigation';
 
 
 import SplashScreen from 'react-native-splash-screen'; // import library from react-native-splash-screen
@@ -16,11 +17,11 @@ const App = () => {
   return (
     <>
 
-  <NavigationContainer>
+  {/* <NavigationContainer>
         <MyTabs />
-      </NavigationContainer>
+      </NavigationContainer> */}
 
- 
+ <Navigation/>
     
     </>
   );

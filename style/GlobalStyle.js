@@ -15,7 +15,7 @@ const css = StyleSheet.create({
     borderBottomWidth: 1,
   },
   headingtext: {
-    fontFamily:'MyriadProBold',
+    fontFamily:'MYRIADPROREGULAR',
     fontSize: 23,
     color: Colors.LIGHT,
     padding: 10,
@@ -42,14 +42,15 @@ const css = StyleSheet.create({
     height: 30,
   },
   accordianContainer: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
      paddingVertical: 5
   },
   accordianText: {
     padding: 7,
-     fontSize: 15,
+     fontSize: 14,
      color: 'grey',
-     fontWeight: '400'
+     fontWeight: '400',
+     textTransform:'uppercase',
   },
 
   accordianHorizontal: {

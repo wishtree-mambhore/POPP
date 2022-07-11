@@ -4,7 +4,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-
+import Navigation from './navigation';
 import React, {useState, useEffect} from 'react';
 import Home from './Home';
 import Index from './Index';
@@ -16,15 +16,21 @@ const Tab = createMaterialBottomTabNavigator();
 
 export const  MyTabs=()=> {
   return (
+
     <Tab.Navigator
       initialRouteName="Home"
       activeColor="white"
-      barStyle={{ backgroundColor: '#0b2545' }}
+      barStyle={{ backgroundColor: '#01426c' }}
       screenOptions={{
         tabBarShowLabel:false
       }}
       
     >
+
+      {/* <Tab.Screen 
+      name='Navigation'
+      component={Navigation}
+      /> */}
       <Tab.Screen
         name="Home"
         component={Home}

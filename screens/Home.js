@@ -8,9 +8,9 @@ import {
   LayoutAnimation,
   StyleSheet,
   ActivityIndicator,
+  Linking
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
-
+import React, {useState, useEffect,useCallback} from 'react';
 import css from '../style/GlobalStyle';
 import Colors from '../style/Colors';
 import Accordion from 'react-native-collapsible/Accordion';
@@ -21,204 +21,21 @@ import {LogBox} from 'react-native';
 import FastImage from 'react-native-fast-image';
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();
-const Home = () => {
+
+const Home = (props) => {
   const [activeSections, setActiveSections] = useState([]);
   const [isLoading, setisLoading] = useState(false);
-  const [loadingImage, setisLoadingImage] = useState(false);
+  // const [loadingImage, setisLoadingImage] = useState(false);
 
   // dummy data
-  const list = [
-    {
-      name: 'Programme and Project Management',
-      avatar_url: '/home/mambhore/popp_project/assets/handshake.jpeg',
-      id: 9,
-      isExpanded: false,
-      photos: [
-        {
-          url: 'img1.jpg',
-        },
-        {
-          url: 'img1.jpg',
-        },
-        {
-          url: 'img1.jpg',
-        },
-        {
-          url: 'img1.jpg',
-        },
-      ],
-    },
-    {
-      name: 'Financial Resources Management',
-      avatar_url: '/home/mambhore/popp_project/assets/handshake.jpeg',
-      id: 8,
-      isExpanded: false,
-
-      photos: [
-        {
-          url: 'img2.jpg',
-        },
-        {
-          url: 'img2.jpg',
-        },
-        {
-          url: 'img2.jpg',
-        },
-        {
-          url: 'img2.jpg',
-        },
-      ],
-    },
-    {
-      name: 'Human Resources Management',
-      avatar_url: '/home/mambhore/popp_project/assets/handshake.jpeg',
-      id: 7,
-      isExpanded: false,
-
-      photos: [
-        {
-          url: 'img3.jpg',
-        },
-        {
-          url: 'img3.jpg',
-        },
-        {
-          url: 'img3.jpg',
-        },
-        {
-          url: 'img3.jpg',
-        },
-      ],
-    },
-    {
-      name: 'Procurement',
-      avatar_url: '/home/mambhore/popp_project/assets/handshake.jpeg',
-      id: 2,
-      isExpanded: false,
-
-      photos: [
-        {
-          url: 'img1.jpg',
-        },
-        {
-          url: 'img1.jpg',
-        },
-        {
-          url: 'img1.jpg',
-        },
-        {
-          url: 'img1.jpg',
-        },
-      ],
-    },
-    {
-      name: 'Partnerships',
-      avatar_url: '/home/mambhore/popp_project/assets/handshake.jpeg',
-      subtitle: 'Vice Chairman',
-      id: 3,
-      isExpanded: false,
-      photos: [
-        {
-          url: 'img1.jpg',
-        },
-        {
-          url: 'img1.jpg',
-        },
-        {
-          url: 'img1.jpg',
-        },
-        {
-          url: 'img1.jpg',
-        },
-      ],
-    },
-    {
-      name: 'Administrative Services',
-      avatar_url: '/home/mambhore/popp_project/assets/handshake.jpeg',
-      id: 4,
-      isExpanded: false,
-      photos: [
-        {
-          url: 'img1.jpg',
-        },
-        {
-          url: 'img1.jpg',
-        },
-        {
-          url: 'img1.jpg',
-        },
-        {
-          url: 'img1.jpg',
-        },
-      ],
-    },
-    {
-      name: 'Information and Communications Technology',
-      avatar_url: '/home/mambhore/popp_project/assets/handshake.jpeg',
-      id: 5,
-      isExpanded: false,
-      photos: [
-        {
-          url: 'img1.jpg',
-        },
-        {
-          url: 'img1.jpg',
-        },
-        {
-          url: 'img1.jpg',
-        },
-        {
-          url: 'img1.jpg',
-        },
-      ],
-    },
-    {
-      name: 'Security',
-      avatar_url: '/home/mambhore/popp_project/assets/handshake.jpeg',
-      id: 6,
-      isExpanded: false,
-      photos: [
-        {
-          url: 'img1.jpg',
-        },
-        {
-          url: 'img1.jpg',
-        },
-        {
-          url: 'img1.jpg',
-        },
-        {
-          url: 'img1.jpg',
-        },
-      ],
-    },
-    {
-      name: 'Security',
-      id: 10,
-      isExpanded: false,
-      photos: [
-        {
-          url: 'mrunali',
-        },
-        {
-          url: 'img1.mrunali',
-        },
-        {
-          url: 'mrunali.jpg',
-        },
-        {
-          url: 'mrunali.jpg',
-        },
-      ],
-      avatar_url: '/home/mambhore/popp_project/assets/handshake.jpeg',
-    },
-  ];
+ 
 
   const [policyData, setPolicyData] = useState([]);
 
   // Fetching data from API
   const fetchData = async () => {
     let isMounted = true;
+    setisLoading(true)
     const res = await axios
       .get(
         'https://popp.undp.org//SitePages/POPPJSONData.aspx?RequestType=APPDATA',
@@ -241,11 +58,28 @@ const Home = () => {
     fetchData();
   }, []);
 
+
+
+  // const handlePress = useCallback(async (url) => {
+  //   console.log('url --> ',url)
+  //   // Checking if the link is supported for links with custom URL scheme.
+  //   const supported = await Linking.canOpenURL(url);
+
+  //   if (supported) {
+  //     // Opening the link with some app, if the URL scheme is "http" the web link should be opened
+  //     // by some browser in the mobile
+  //     await Linking.openURL(url);
+  //   } else {
+  //     alert('hello url not workin ', url)
+  //   }
+  // }, [url]);
   // this function render title of the data
   const _renderHeader = (sections, _, isActive) => {
     // console.log("sections.termID -->", sections.termID)
     return (
+      
       <ScrollView style={css.renderView}>
+        
         <View style={css.flexItem} key={sections.termID.toString()}>
           <View>
             <FastImage
@@ -279,7 +113,7 @@ const Home = () => {
 
           <Text style={css.itemText}>{sections.name}</Text>
 
-          <TouchableOpacity style={css.iconOnpress}>
+          <TouchableOpacity style={css.iconOnpress} onPress={()=>props.navigation.navigate('Sum',{itemId:sections.termID})}>
             <Image
               style={css.iconimage}
               // info tag image from assets
@@ -300,7 +134,12 @@ const Home = () => {
         {sections.chapters.map((item, index) => {
           return (
             <View style={css.accordianContainer} key={index}>
-              <Text style={css.accordianText}>{item.name}</Text>
+              <TouchableOpacity onPress={()=>props.navigation.navigate('Chapters',{data:item})}>
+              <Text style={css.accordianText}
+              numberOfLines={1}
+              >{item.name}</Text>
+
+              </TouchableOpacity>
               <View style={css.accordianHorizontal} />
             </View>
           );
@@ -318,7 +157,8 @@ const Home = () => {
 
         <View>
           {/* Map array data  */}
-          {policyData.map(item => (
+
+          {    policyData.map(item => (
             <TouchableOpacity
               key={item.name}
               onPress={() => setActiveSections([item.termID])}>

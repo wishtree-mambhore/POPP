@@ -13,6 +13,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.RNFetchBlob.RNFetchBlobPackage; 
+import com.reactnativecommunity.webview.RNCWebViewPackage;
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
@@ -30,6 +32,8 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new MyReactNativePackage());
             new VectorIconsPackage();
             new RNFetchBlobPackage();
+            new RNCWebViewPackage();
+
           return packages;
         }
 
