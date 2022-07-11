@@ -11,7 +11,7 @@ import Index from './Index';
 import Announcement from './Announcement';
 import WhatsNew from './WhatsNew';
 import Recent from './Recent';
-
+// import Offline from './offiline';
 const Tab = createMaterialBottomTabNavigator();
 
 export const  MyTabs=()=> {

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   LayoutAnimation,
   StyleSheet,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 
@@ -16,9 +17,14 @@ import Accordion from 'react-native-collapsible/Accordion';
 import * as Animatable from 'react-native-animatable';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import axios from 'axios';
+import {LogBox} from 'react-native';
+import FastImage from 'react-native-fast-image';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();
 const Home = () => {
   const [activeSections, setActiveSections] = useState([]);
   const [isLoading, setisLoading] = useState(false);
+  const [loadingImage, setisLoadingImage] = useState(false);
 
   // dummy data
   const list = [
@@ -209,6 +215,8 @@ const Home = () => {
   ];
 
   const [policyData, setPolicyData] = useState([]);
+
+  // Fetching data from API
   const fetchData = async () => {
     let isMounted = true;
     const res = await axios
@@ -216,37 +224,66 @@ const Home = () => {
         'https://popp.undp.org//SitePages/POPPJSONData.aspx?RequestType=APPDATA',
       )
       .then(res => {
-        if (isMounted)
-        {
+        if (isMounted) {
           setPolicyData(res.data);
-        setisLoading(false);
-        console.log(policyData)
-        } 
+          setisLoading(false);
+          if (res.data) {
+          }
+        }
       });
-      return () => {
-        isMounted = false;
-      };
+    return () => {
+      isMounted = false;
+    };
   };
 
+  // calling function when app start
   useEffect(() => {
     fetchData();
   }, []);
 
   // this function render title of the data
   const _renderHeader = (sections, _, isActive) => {
+    // console.log("sections.termID -->", sections.termID)
     return (
       <ScrollView style={css.renderView}>
-        <View style={css.flexItem}>
-          <Image
-            style={css.image}
-            source={require('/home/mambhore/popp_project/assets/handshake.jpeg')}
-          />
+        <View style={css.flexItem} key={sections.termID.toString()}>
+          <View>
+            <FastImage
+              style={css.image}
+              source={{
+                cache: FastImage.cacheControl.cacheOnly,
+                priority: FastImage.priority.high,
+
+                uri:
+                  'https://popp.undp.org/Style%20Library/POPP/images/icons/' +
+                  sections.termID +
+                  '.png',
+              }}
+              onLoad={e => {
+                console.log(
+                  'loadin loaded ',
+                  e.nativeEvent.width,
+                  e.nativeEvent.height,
+                );
+              }}
+              onLoadEnd={e => console.log('Loading Ended')}
+              onLoadStart={e => console.log('Loading Start')}
+              onProgress={e =>
+                console.log(
+                  'Loading Progress ' +
+                    e.nativeEvent.loaded / e.nativeEvent.total,
+                )
+              }
+            />
+          </View>
+
           <Text style={css.itemText}>{sections.name}</Text>
 
           <TouchableOpacity style={css.iconOnpress}>
             <Image
-              style={css.image}
-              source={require('/home/mambhore/popp_project/assets/undpITag.png')}
+              style={css.iconimage}
+              // info tag image from assets
+              source={require('/home/mambhore/popp_project/assets/undpITag.png')} 
             />
           </TouchableOpacity>
         </View>
@@ -260,9 +297,9 @@ const Home = () => {
   const _renderContent = (sections, _, isActive) => {
     return (
       <View>
-        {sections.chapters.map(item => {
+        {sections.chapters.map((item, index) => {
           return (
-            <View style={css.accordianContainer}>
+            <View style={css.accordianContainer} key={index}>
               <Text style={css.accordianText}>{item.name}</Text>
               <View style={css.accordianHorizontal} />
             </View>
@@ -280,26 +317,25 @@ const Home = () => {
         </View>
 
         <View>
+          {/* Map array data  */}
           {policyData.map(item => (
             <TouchableOpacity
-              key={item.termID}
+              key={item.name}
               onPress={() => setActiveSections([item.termID])}>
-              {item.chapters.map(item => {
+              {item.chapters.map((item, index) => {
                 <View>
-                  <TouchableOpacity key={item}>
+                  <TouchableOpacity key={index}>
                     <Text>{item.name}</Text>
                   </TouchableOpacity>
-                </View>
+                </View>;
               })}
             </TouchableOpacity>
           ))}
         </View>
-
+{/* using Accordian to show expandable list */}
         <Accordion
-          key={list}
           sections={policyData}
           activeSections={activeSections}
-          //  renderSectionTitle={_renderSectionTitle}
           renderHeader={_renderHeader}
           renderContent={_renderContent}
           onChange={setActiveSections}

@@ -1,5 +1,4 @@
 package com.popp_project;
-
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -13,6 +12,7 @@ import com.popp_project.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.RNFetchBlob.RNFetchBlobPackage; 
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
@@ -29,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
             new VectorIconsPackage();
+            new RNFetchBlobPackage();
           return packages;
         }
 

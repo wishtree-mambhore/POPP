@@ -4,6 +4,7 @@ import Colors from './Colors';
 const css = StyleSheet.create({
   body: {
     flex: 1,
+    backgroundColor:Colors.LIGHT
 
     // alignItems:'center',
     // justifyContent:'center',
@@ -14,6 +15,7 @@ const css = StyleSheet.create({
     borderBottomWidth: 1,
   },
   headingtext: {
+    fontFamily:'MyriadProBold',
     fontSize: 23,
     color: Colors.LIGHT,
     padding: 10,
@@ -29,14 +31,27 @@ const css = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     // width:'100%',
-    padding: 15,
+    padding: 10,
   },
   image: {
+    width: 40,
+    height: 40,
+  },
+  iconimage: {
     width: 30,
     height: 30,
   },
-  accordianContainer: {paddingHorizontal: 20, paddingVertical: 5},
-  accordianText: {padding: 7, fontSize: 15, color: 'grey', fontWeight: '400'},
+  accordianContainer: {
+    paddingHorizontal: 20,
+     paddingVertical: 5
+  },
+  accordianText: {
+    padding: 7,
+     fontSize: 15,
+     color: 'grey',
+     fontWeight: '400'
+  },
+
   accordianHorizontal: {
     height: 4,
     borderBottomColor: 'grey',
@@ -47,7 +62,7 @@ const css = StyleSheet.create({
     fontSize: 15,
     width: '70%',
     paddingLeft: 7,
-    color: '#0b2545',
+    color: '#01426c',
     fontWeight: '400',
     textTransform: 'uppercase',
   },
