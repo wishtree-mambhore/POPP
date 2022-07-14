@@ -18,7 +18,7 @@ export const  MyTabs=()=> {
   return (
 
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Navigation"
       activeColor="white"
       barStyle={{ backgroundColor: '#01426c' }}
       screenOptions={{
@@ -32,8 +32,8 @@ export const  MyTabs=()=> {
       component={Navigation}
       /> */}
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="Navigation"
+        component={Navigation}
         
         
         options={{

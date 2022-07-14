@@ -2,28 +2,29 @@ import {View, Text, FlatList, StatusBar, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {MyTabs} from './screens/Tabnavigation';
 import {NavigationContainer} from '@react-navigation/native';
-import {Provider} from 'react-redux';
-import {PersistGate} from 'redux-persist/lib/integration/react';
-import {store} from './redux/store'
-import Navigation from './screens/navigation';
 
-
+// import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+// import { MyTabs } from './screens/Tabnavigation';
 import SplashScreen from 'react-native-splash-screen'; // import library from react-native-splash-screen
+
+const Stack=createNativeStackNavigator();
+
 const App = () => {
   useEffect(() => {
     SplashScreen.hide();
   }, []);
 
   return (
-    <>
-
-  {/* <NavigationContainer>
+ 
+  <NavigationContainer>
         <MyTabs />
-      </NavigationContainer> */}
+      </NavigationContainer>
 
- <Navigation/>
-    
-    </>
+  
+
+
+
   );
 };
 

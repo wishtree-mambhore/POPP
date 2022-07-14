@@ -8,9 +8,9 @@ import {
   LayoutAnimation,
   StyleSheet,
   ActivityIndicator,
-  Linking
+  Linking,
 } from 'react-native';
-import React, {useState, useEffect,useCallback} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import css from '../style/GlobalStyle';
 import Colors from '../style/Colors';
 import Accordion from 'react-native-collapsible/Accordion';
@@ -22,20 +22,20 @@ import FastImage from 'react-native-fast-image';
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();
 
-const Home = (props) => {
+const Home = props => {
   const [activeSections, setActiveSections] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   // const [loadingImage, setisLoadingImage] = useState(false);
 
   // dummy data
- 
 
   const [policyData, setPolicyData] = useState([]);
+  const [chapterArray, setChapterArray] = useState([]);
 
   // Fetching data from API
   const fetchData = async () => {
     let isMounted = true;
-    setisLoading(true)
+    setisLoading(true);
     const res = await axios
       .get(
         'https://popp.undp.org//SitePages/POPPJSONData.aspx?RequestType=APPDATA',
@@ -44,6 +44,7 @@ const Home = (props) => {
         if (isMounted) {
           setPolicyData(res.data);
           setisLoading(false);
+          console.log('policy data ', policyData);
           if (res.data) {
           }
         }
@@ -57,8 +58,6 @@ const Home = (props) => {
   useEffect(() => {
     fetchData();
   }, []);
-
-
 
   // const handlePress = useCallback(async (url) => {
   //   console.log('url --> ',url)
@@ -77,9 +76,7 @@ const Home = (props) => {
   const _renderHeader = (sections, _, isActive) => {
     // console.log("sections.termID -->", sections.termID)
     return (
-      
       <ScrollView style={css.renderView}>
-        
         <View style={css.flexItem} key={sections.termID.toString()}>
           <View>
             <FastImage
@@ -113,11 +110,13 @@ const Home = (props) => {
 
           <Text style={css.itemText}>{sections.name}</Text>
 
-          <TouchableOpacity style={css.iconOnpress} onPress={()=>props.navigation.navigate('Sum',{itemId:sections.termID})}>
+          <TouchableOpacity
+            style={css.iconOnpress}
+            onPress={() => props.navigation.navigate('SummaryChapter')}>
             <Image
               style={css.iconimage}
               // info tag image from assets
-              source={require('/home/mambhore/popp_project/assets/undpITag.png')} 
+              source={require('/home/mambhore/popp_project/assets/undpITag.png')}
             />
           </TouchableOpacity>
         </View>
@@ -134,11 +133,19 @@ const Home = (props) => {
         {sections.chapters.map((item, index) => {
           return (
             <View style={css.accordianContainer} key={index}>
-              <TouchableOpacity onPress={()=>props.navigation.navigate('Chapters',{data:item})}>
-              <Text style={css.accordianText}
-              numberOfLines={1}
-              >{item.name}</Text>
+              <TouchableOpacity
+                onPress={() =>
+                  props.navigation.navigate('Chapters', {
+                    data: item.subjectGroups,
+                    title: item.name,
+                    subjects: item.subjects,
+                    
 
+                  })
+                }>
+                <Text style={css.accordianText} numberOfLines={1}>
+                  {item.name}
+                </Text>
               </TouchableOpacity>
               <View style={css.accordianHorizontal} />
             </View>
@@ -150,29 +157,9 @@ const Home = (props) => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <ScrollView style={css.body}>
-        <View style={css.headingTextView}>
-          <Text style={css.headingtext}>UNDP POLICY AREAS</Text>
-        </View>
-
-        <View>
-          {/* Map array data  */}
-
-          {    policyData.map(item => (
-            <TouchableOpacity
-              key={item.name}
-              onPress={() => setActiveSections([item.termID])}>
-              {item.chapters.map((item, index) => {
-                <View>
-                  <TouchableOpacity key={index}>
-                    <Text>{item.name}</Text>
-                  </TouchableOpacity>
-                </View>;
-              })}
-            </TouchableOpacity>
-          ))}
-        </View>
-{/* using Accordian to show expandable list */}
+      {
+        (policyData.length==0)?<ActivityIndicator  color={Colors.PRIMARY} size={40}  style={{marginTop:100}}/>:   <ScrollView style={css.body}>
+        {/* using Accordian to show expandable list */}
         <Accordion
           sections={policyData}
           activeSections={activeSections}
@@ -182,7 +169,24 @@ const Home = (props) => {
           duration={400}
           touchableComponent={TouchableOpacity}
         />
+        <View style={[css.flexItem, {paddingLeft: 61}]}>
+          <Text style={[css.itemText, css.bottomText]}>
+            programme and project management visual guides
+          </Text>
+
+          <TouchableOpacity
+            style={css.iconOnpress}
+            onPress={() => props.navigation.navigate('SummaryChapter')}>
+            <Image
+              style={css.iconimage}
+              // info tag image from assets
+              source={require('/home/mambhore/popp_project/assets/undpITag.png')}
+            />
+          </TouchableOpacity>
+        </View>
       </ScrollView>
+      }
+   
     </SafeAreaView>
   );
 };

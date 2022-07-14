@@ -58,6 +58,21 @@ const css = StyleSheet.create({
     borderBottomColor: 'grey',
     borderBottomWidth: 2,
   },
+  subjectsText:
+  {
+    fontSize: 15,
+    width: '100%',
+    color: '#01426c',
+    fontWeight: '400',
+    textTransform: 'uppercase',
+    paddingBottom:10,
+    paddingLeft:5,
+    paddingTop:10,
+  },
+  subjectsTextView:
+  {
+margin:10,
+  },
 
   itemText: {
     fontSize: 15,
@@ -77,6 +92,12 @@ const css = StyleSheet.create({
     // marginBottom:10,
     paddingHorizontal: 7,
   },
+  bottomText:
+  {
+    textAlign:'center',
+    numberOfLines:1,
+   
+  }
 });
 
 export default css;
