@@ -21,7 +21,7 @@ const Navigation = () => {
         headerTitleAlign: 'center',
         headerShown: true,
         headerTitle: 'UNDP POLICY AREAS',
-        headerTintColor: 'white',
+        headerTintColor: Colors.LIGHT,
         headerStyle: {
           backgroundColor: Colors.PRIMARY,
         },

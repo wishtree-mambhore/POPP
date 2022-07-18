@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-
+import { texts } from '../style/Text'
 const Index = () => {
   return (
     <View>
-      <Text>Index</Text>
+      <Text>{texts.dummy}</Text>
     </View>
   )
 }

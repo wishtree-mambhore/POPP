@@ -11,7 +11,7 @@ import Index from './Index';
 import Announcement from './Announcement';
 import WhatsNew from './WhatsNew';
 import Recent from './Recent';
-// import Offline from './offiline';
+import Colors from '../style/Colors';
 const Tab = createMaterialBottomTabNavigator();
 
 export const  MyTabs=()=> {
@@ -19,18 +19,14 @@ export const  MyTabs=()=> {
 
     <Tab.Navigator
       initialRouteName="Navigation"
-      activeColor="white"
-      barStyle={{ backgroundColor: '#01426c' }}
+      activeColor={Colors.LIGHT}
+      barStyle={{ backgroundColor: Colors.PRIMARY }}
       screenOptions={{
         tabBarShowLabel:false
       }}
       
     >
 
-      {/* <Tab.Screen 
-      name='Navigation'
-      component={Navigation}
-      /> */}
       <Tab.Screen
         name="Navigation"
         component={Navigation}
@@ -40,8 +36,7 @@ export const  MyTabs=()=> {
           tabBarLabel: 'Home',
           tabBarShowLabel:false,
           tabBarIcon: ({ color, size }) => (
-            // <IconButton icon={'home-outline'} color="white" size={25} />
-            <Ionicons name="home-outline" color={'white'} size={24} />
+            <Ionicons name="home-outline" color={Colors.LIGHT} size={24} />
 
           ),
 
@@ -51,9 +46,8 @@ export const  MyTabs=()=> {
         name="Index"
         component={Index}
         options={{
-          // tabBarLabel: 'Updates',
           tabBarIcon: () => (
-            <EvilIcons name="search" color={'white'} size={25} />
+            <EvilIcons name="search" color={Colors.LIGHT} size={25} />
             ),
         }}
       />
@@ -61,10 +55,9 @@ export const  MyTabs=()=> {
         name="Announcement"
         component={Announcement}
         options={{
-          // tabBarLabel: 'Updates',
           
           tabBarIcon: () => (
-            <Ionicons name="megaphone-outline" color={'white'} size={25} />
+            <Ionicons name="megaphone-outline" color={Colors.LIGHT} size={25} />
           ),
         }}
       />
@@ -73,7 +66,7 @@ export const  MyTabs=()=> {
         component={WhatsNew}
         options={{
           tabBarIcon: ({ color }) => (
-            <EvilIcons name="clock" color={'white'} size={27} />
+            <EvilIcons name="clock" color={Colors.LIGHT} size={27} />
           ),
         }}
       />

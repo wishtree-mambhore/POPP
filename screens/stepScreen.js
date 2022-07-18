@@ -8,15 +8,12 @@ import css from '../style/GlobalStyle';
 const WIDTH = Dimensions.get('window').width;
 
 const StepScreen = (props) => {
-    const stepname = props?.route?.params?.title;
-    const procTitle = props?.route?.params?.procTitle;
-    const brief =props?.route?.params?.brief
+    const stepname = props?.route?.params?.title;  //step  name from policylisting view
+    const procTitle = props?.route?.params?.procTitle;   //procedure title from policylisting view
+    const brief =props?.route?.params?.brief       // brief props from policylisting area view
 
-    console.log(
+   // custom header by providing step title props
 
-" proce title ===>",procTitle,'brief -->',brief
-
-    )
 
     React.useLayoutEffect(() => {
         props.navigation.setOptions({
@@ -25,13 +22,7 @@ const StepScreen = (props) => {
               numberOfLines={1}
               ellipsizeMode="tail"
               {...props}
-              style={{
-                color: 'white',
-                fontFamily: 'MARIADPROREGULAR',
-                fontSize: 18,
-                width: WIDTH - 150,
-                textAlign:'center'
-              }}>
+              style={css.headerTitleText}>
               {stepname}{' '}
             </Text>
           ),

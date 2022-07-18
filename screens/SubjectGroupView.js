@@ -6,30 +6,30 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
+import { texts } from '../style/Text';
 import React, {useState, useEffect} from 'react';
 import Colors from '../style/Colors';
 import css from '../style/GlobalStyle';
 import Accordion from 'react-native-collapsible/Accordion';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
-const WIDTH = Dimensions.get('window').width;
 
 const Chapters = props => {
-  const ChaptersData = props?.route?.params?.data;
+  const SubjectGroupData = props?.route?.params?.data;
   const chapterTitle = props?.route?.params?.title;
-  const subjects = props?.route?.params?.subjects;
+  const subjects = props?.route?.params?.subjects; 
   const [subData,setSubData] = React.useState([]);
   const [subGroup,setsubGroup] = React.useState([]);
-
   const [activeSections, setActiveSections] = useState([]);
 
-  console.log('subjects data ', subjects);
+
+  // set subject and chapter data during mounting
   useEffect(() => {
     setSubData(subjects);
     setsubGroup(chapterArray)
   });
-  const chapterArray = ChaptersData;
-  // console.log('Chpater data ', chapterArray);
+  const chapterArray = SubjectGroupData; 
+
+  // custom header by providing chapter title props
   React.useLayoutEffect(() => {
     props.navigation.setOptions({
       headerTitle: props => (
@@ -37,12 +37,7 @@ const Chapters = props => {
           numberOfLines={1}
           ellipsizeMode="tail"
           {...props}
-          style={{
-            color: 'white',
-            fontFamily: 'MARIADPROREGULAR',
-            fontSize: 18,
-            width: WIDTH - 120,
-          }}>
+          style={css.headerTitleText}>
           {chapterTitle}{' '}
         </Text>
       ),
@@ -51,8 +46,11 @@ const Chapters = props => {
       },
     });
   }, [props.navigation]);
+
+// this function used to render subjects title name and taking subjects group as parameter
+
   const _renderHeader = (sections, _, isActive) => {
-    console.log('sections.termID -->', sections);
+    // console.log('sections.termID -->', sections);
     return (
       <ScrollView style={css.renderView}>
       <View key={sections.termID.toString()}>
@@ -67,6 +65,9 @@ const Chapters = props => {
     </ScrollView>
     );
   };
+
+
+  // this function rendering content  from subjects group data and taking subjects group as parameter
 
   const _renderContent = (sections, _, isActive) => {
     return (
@@ -100,7 +101,7 @@ const Chapters = props => {
        />
       {(subData.length  || subGroup.length)? 
        <View>
-      
+      {/* display of subject from chapter's data  */}
        {
          subjects.map((item,index)=>
          {
@@ -116,7 +117,7 @@ const Chapters = props => {
          })
        }
 
-     </View>:<View styles={{flex:1,backgroundColor:'red'}}><Text>NO DATA AVAILABLE</Text></View> }
+     </View>:<View styles={{flex:1,backgroundColor:Colors.LIGHT, }}><Text style={{textAlign:'center',fontSize:20}}>{texts.nodata}</Text></View> }
 
     </View>
   );

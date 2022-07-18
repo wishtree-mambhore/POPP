@@ -21,26 +21,22 @@ const WIDTH = Dimensions.get('window').width;
 
 const Summary = props => {
   const SubjectData = props?.route?.params?.data;
-  const subUrl = props?.route?.params?.surl;
 
   const [subject, setSubject] = useState([SubjectData]);
   const SubjectTitle = props?.route?.params?.title;
   const [activeSections, setActiveSections] = useState([]);
   const [pageactiveSections, setPageActiveSections] = useState([]);
 
-  console.log('subject url ==> ',);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
     {label: 'Apple', value: 'apple'},
     {label: 'Banana', value: 'banana'},
   ]);
-  const [iconName, setIconName] = useState('star-outline');
   const [iconFlag, setIconFlag] = useState(false);
-  const handlePress = useCallback(async url => {
-    // Open the custom settings if the app has one
-    await Linking.openURL(url);
-  }, []);
+ 
+  // dummy data of proceduer 
+
   const procedre = [
     {
       name: 'Quality Assurancee (Programme)',
@@ -115,7 +111,7 @@ const Summary = props => {
     },
   ];
 
-
+// function for share button by providing url as parameter
   const onShare = async (url) => {
     try {
       const result = await Share.share({
@@ -136,6 +132,7 @@ const Summary = props => {
     }
   };
 
+  // dummy data of page property 
   const pageProperty = [
     [
       {
@@ -152,24 +149,61 @@ const Summary = props => {
     ],
   ];
 
+
+//  this function to render header of procedures and taking procedure dummy data as parameter
   const _renderHeader = (sections, _, isActive) => {
     // console.log("sections.termID -->", sections.termID)
     return (
       <ScrollView style={css.renderView}>
         <View style={{padding: 5}} key={sections.key}>
-          <Text style={{color: 'grey', fontSize: 15}}>{sections.name}</Text>
+          <Text style={css.mainProcedureText}>{sections.name}</Text>
         </View>
 
         <View
-          style={{
-            height: 5,
-            borderBottomColor: '#CDD8DB',
-            borderBottomWidth: 1,
-          }}
+          style={css.mainProcedureHorizontal}
         />
       </ScrollView>
     );
   };
+ 
+// this function use  to render content from procedure step array and show below the procedure header
+
+  const _renderContent = (sections, _, isActive) => {
+    return (
+      <View style={[css.renderView]}>
+        {sections.steps.map((item, index) => {
+          return (
+            <View key={index}>
+              <View
+                style={css.stepflex}>
+                <Text style={{paddingRight: 20}}>Step {index + 1}</Text>
+                <Entypo name={'user'} color={Colors.Grey} size={15} />
+                <Text numberOfLines={2} style={{width: '70%'}}>
+                  {item.stepname}
+                </Text>
+              </View>
+              <View style={{padding: 10}}>
+                <Text>{item.brief}</Text>
+              </View>
+              <TouchableOpacity
+                onPress={() =>props.navigation.navigate('StepScreen',{title: `Step ${index+1}`, procTitle:item.stepname,brief:item.brief })}>
+                <Text style={css.readMore}>
+                  Read more
+                </Text>
+              </TouchableOpacity>
+
+              <View
+                style={css.stepHorizontal}
+              />
+            </View>
+          );
+        })}
+      </View>
+    );
+  };
+
+  // this function used to render header of page property and take pageproperty dummy data as parameter
+
   const _pagerenderHeader = (sections, _, isActive) => {
     console.log("sections.termID -->", sections.name)
     return (
@@ -179,7 +213,7 @@ const Summary = props => {
             sections.map((item,index)=>
             {
               return(
-                <Text style={{color: 'black', fontSize: 15}}>{item.name}</Text>
+                <Text style={css.pageHeaderText}>{item.name}</Text>
 
               )
             })
@@ -189,7 +223,7 @@ const Summary = props => {
         <View
           style={{
             height: 5,
-            borderBottomColor: 'black',
+            borderBottomColor: Colors.DARK,
             borderBottomWidth: 1,
           }}
         />
@@ -206,18 +240,18 @@ const Summary = props => {
             return(
               <View style={{padding:10}} key={index}>
 
-                  <Text>KEY WORDS</Text>
-                  <Text>{item.keyword}</Text>
-                  <Text>FOCAL POINT</Text>
-                  <Text>{item.focalpoint}</Text>
-                  <Text>EFFECTIVE DATE</Text>
-                  <Text>{item.EffectiveDate}</Text>
-                  <Text>PLANNED REVIEW DATE </Text>
-                  <Text>{item.PlannedReviewaDate}</Text>
-                  <Text>SUMMARY OF CHANGES/COMMENTS</Text>
-                  <Text>{item.SummaryOfChangesCommets}</Text>
-                  <Text>VERSIONS#</Text>
-                  <Text>{item.Version}</Text>
+                  <Text style={css.pagepropertyText}>KEY WORDS</Text>
+                  <Text style={css.pagepropertyText}>{item.keyword}</Text>
+                  <Text style={css.pagepropertyText}>FOCAL POINT</Text>
+                  <Text style={css.pagepropertyText}>{item.focalpoint}</Text>
+                  <Text style={css.pagepropertyText}>EFFECTIVE DATE</Text>
+                  <Text style={css.pagepropertyText}>{item.EffectiveDate}</Text>
+                  <Text style={css.pagepropertyText}>PLANNED REVIEW DATE </Text>
+                  <Text style={css.pagepropertyText}>{item.PlannedReviewaDate}</Text>
+                  <Text style={css.pagepropertyText}>SUMMARY OF CHANGES/COMMENTS</Text>
+                  <Text style={css.pagepropertyText}>{item.SummaryOfChangesCommets}</Text>
+                  <Text style={css.pagepropertyText}>VERSIONS#</Text>
+                  <Text style={css.pagepropertyText}>{item.Version}</Text>
 
               </View>
             
@@ -229,48 +263,10 @@ const Summary = props => {
     );
   };
 
-  const _renderContent = (sections, _, isActive) => {
-    return (
-      <View style={[css.renderView]}>
-        {sections.steps.map((item, index) => {
-          return (
-            <View key={index}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingTop: 5,
-                }}>
-                <Text style={{paddingRight: 20}}>Step {index + 1}</Text>
-                <Entypo name={'user'} color={'grey'} size={15} />
-                <Text numberOfLines={2} style={{width: '70%'}}>
-                  {item.stepname}
-                </Text>
-              </View>
-              <View style={{padding: 10}}>
-                <Text>{item.brief}</Text>
-              </View>
-              <TouchableOpacity
-                onPress={() =>props.navigation.navigate('StepScreen',{title: `Step ${index+1}`, procTitle:item.stepname,brief:item.brief })}>
-                <Text style={{color: Colors.PRIMARY, marginLeft: 230}}>
-                  Read more
-                </Text>
-              </TouchableOpacity>
+ 
 
-              <View
-                style={{
-                  height: 5,
-                  borderBottomColor: '#CDD8DB',
-                  borderBottomWidth: 1,
-                  marginLeft: 15,
-                }}
-              />
-            </View>
-          );
-        })}
-      </View>
-    );
-  };
+
+  //  custom header using subject Title as parameter
   React.useLayoutEffect(() => {
     props.navigation.setOptions({
       headerTitle: props => (
@@ -278,12 +274,7 @@ const Summary = props => {
           numberOfLines={1}
           ellipsizeMode="tail"
           {...props}
-          style={{
-            color: 'white',
-            fontFamily: 'MARIADPROREGULAR',
-            fontSize: 18,
-            width: WIDTH - 150,
-          }}>
+          style={css.headerTitleText}>
           {SubjectTitle}{' '}
         </Text>
       ),
@@ -293,7 +284,7 @@ const Summary = props => {
         //Set Header color
       },
       headerRight: () => (
-        <Ionicons name="share-social-sharp" color={'white'} size={28}  onPress={()=>{onShare()}} />
+        <Ionicons name="share-social-sharp" color={Colors.LIGHT} size={28}  onPress={()=>{onShare()}} />
       ),
     });
   }, [props.navigation]);
@@ -301,21 +292,9 @@ const Summary = props => {
     <ScrollView>
       <View style={css.body}>
         <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            margin: 12,
-          }}>
+          style={css.bookmarkLanguageView}>
           <View
-            style={{
-              borderWidth: 1,
-              width: '50%',
-              borderColor: Colors.PRIMARY,
-              marginRight: 20,
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              padding: 10,
-            }}>
+            style={css.bookmarkIconView}>
             <Text style={{fontSize: 19, color: Colors.DARK}}>Bookmark</Text>
             {iconFlag ? (
               <TouchableOpacity
@@ -359,71 +338,29 @@ const Summary = props => {
         </View>
 
         <View
-          style={{
-            borderBottomWidth: 2,
-            borderRadius: 10,
-            margin: 7,
-            backgroundColor: '#EBFAFF',
-            height: 40,
-            alignItems: 'flex-start',
-            borderBottomColor: '#EDEFF1',
-            paddingLeft: 10,
-            paddingTop: 15,
-          }}>
+          style={css.relevantRegulationView}>
           <Text style={{textAlignVertical: 'bottom', color: Colors.PRIMARY}}>
             RELEVANT REGULATIONS AND RULES
           </Text>
         </View>
         <View
-          style={{
-            backgroundColor: '#F4F4F4',
-            height: 100,
-            margin: 10,
-            borderRadius: 10,
-            paddingLeft: 10,
-            paddingRight: 10,
-          }}>
+          style={css.policieView}>
           <Text
-            style={{
-              fontSize: 15,
-              borderBottomWidth: 1,
-              paddingLeft: 3,
-              textTransform: 'uppercase',
-              color: Colors.PRIMARY,
-              paddingTop: 10,
-              borderBottomColor: '#CDD8DB',
-            }}>
+            style={css.policiesText}>
             Policies
           </Text>
-          <Text style={{paddingLeft: 10, textTransform: 'uppercase'}}>
+          <Text style={css.mainPolicyText}>
             main policy
           </Text>
-          <Text style={{paddingLeft: 10, textTransform: 'uppercase'}}>
+          <Text style={css.mainPolicyText}>
             Related policy
           </Text>
         </View>
 
         <View
-          style={{
-            borderRadius: 10,
-            margin: 7,
-            backgroundColor: '#EBFAFF',
-
-            alignItems: 'flex-start',
-            borderBottomColor: '#bbbbbb',
-            paddingLeft: 10,
-            paddingTop: 15,
-            paddingRight: 15,
-          }}>
+          style={css.procedureView}>
           <Text
-            style={{
-              textAlignVertical: 'bottom',
-              color: Colors.PRIMARY,
-              width: '100%',
-              borderBottomWidth: 1,
-              paddingBottom: 5,
-              borderBottomColor: '#bbbbbb',
-            }}>
+            style={css.procedureText}>
             PROCEDURES
           </Text>
           <Text style={{padding: 5}}>MAIN PROCEDURES</Text>
@@ -443,13 +380,7 @@ const Summary = props => {
       </View>
 
       <View
-        style={{
-        
-          backgroundColor: 'white',
-          margin: 7,
-          borderRadius: 10,
-          height:'100%'
-        }}>
+        style={css.pageView}>
         <Accordion
           sections={pageProperty}
           activeSections={pageactiveSections}
