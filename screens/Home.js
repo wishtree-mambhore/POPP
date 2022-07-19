@@ -2,15 +2,11 @@ import {
   View,
   Text,
   ScrollView,
-  FlatList,
   Image,
   TouchableOpacity,
-  LayoutAnimation,
-  StyleSheet,
   ActivityIndicator,
-  Linking,
 } from 'react-native';
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect} from 'react';
 import css from '../style/GlobalStyle';
 import Colors from '../style/Colors';
 import Accordion from 'react-native-collapsible/Accordion';
@@ -18,26 +14,28 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import axios from 'axios';
 import {LogBox} from 'react-native';
 import FastImage from 'react-native-fast-image';
+import {urls} from '../style/URL';
+
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();
-import {urls} from '../style/URL';
 const Home = props => {
   const [activeSections, setActiveSections] = useState([]);
-  const [isLoading, setisLoading] = useState(false);
 
   const [policyData, setPolicyData] = useState([]);
-  const [chapterArray, setChapterArray] = useState([]);
+  {
+    /*  
+     * This is the fetchData method which makes use of fetching data froms erver.
+     * @param apiUrl used from urls global file.
+     * @return ismounted .
+     */
+  }
 
-  // Fetching data from API url
   const fetchData = async () => {
     let isMounted = true;
     setisLoading(true);
     const res = await axios.get(urls.apiUrl).then(res => {
       if (isMounted) {
         setPolicyData(res.data);
-        setisLoading(false);
-        if (res.data) {
-        }
       }
     });
     return () => {
@@ -45,14 +43,26 @@ const Home = props => {
     };
   };
 
-  // calling function when app start and calling fetchData function
+{  /**
+   * This is the useEffect is hook which makes use to render fetchData method when app start.
+   * @param     nothing .
+   * @return noting .
+   */
+}
+
   useEffect(() => {
     fetchData();
   }, []);
 
-  // this function render title of the data
+  {/**
+   * This is the _renderHeader method which makes use of render title of list .
+   * @param sections type of array .
+   * @param _ and isActive unused
+
+   * @return title of expandable list.
+ 
+*/}
   const _renderHeader = (sections, _, isActive) => {
-    // console.log("sections.termID -->", sections.termID)
     return (
       <ScrollView style={css.renderView}>
         <View style={css.flexItem} key={sections.termID.toString()}>
@@ -84,7 +94,7 @@ const Home = props => {
           </View>
 
           <Text style={css.itemText}>{sections.name}</Text>
-
+          {/* navigate to webview page */}
           <TouchableOpacity
             style={css.iconOnpress}
             onPress={() => props.navigation.navigate('SummaryChapter')}>
@@ -101,7 +111,17 @@ const Home = props => {
     );
   };
 
-  // this function render content of data under title
+ { /**
+  This is the _renderHeader method which makes use of render title of list .
+
+ * @param sections — type of array .
+
+ * @param _ — and isActive unused
+
+  * @return — title of expandable list.
+ 
+*/}
+
   const _renderContent = (sections, _, isActive) => {
     return (
       <View>

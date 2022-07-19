@@ -5,6 +5,9 @@ import {texts} from '../style/Text';
 const WIDTH = Dimensions.get('window').width;
 
 const ExplanatoryScreen = props => {
+
+
+// this function used to show header 
   React.useLayoutEffect(() => {
     props.navigation.setOptions({
       headerTitle: props => (

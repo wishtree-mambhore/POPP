@@ -11,7 +11,16 @@ import css from '../style/GlobalStyle';
 import SummaryChapter from './SummaryChapter';
 import StepScreen from './stepScreen';
 import ExplanatoryScreen from './ExplanatoryScreen';
+
+
+
 const Stack = createNativeStackNavigator();
+{  /**
+   * This is the Navigation function is used to create stack of screen and use for navigation of screen.
+   * @param . nothing
+   * @return Navigatior function from createNativeStackNAvigator .
+   */
+}
 
 const Navigation = () => {
   return (

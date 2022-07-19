@@ -111,8 +111,13 @@ const Summary = props => {
     },
   ];
 
-// function for share button by providing url as parameter
-  const onShare = async (url) => {
+
+  {  /**
+  * This  onShare method used share contain through various app by click on share icon.
+  * @param     nothing .
+  * @return noting .
+  */
+}  const onShare = async () => {
     try {
       const result = await Share.share({
         message:
@@ -150,8 +155,15 @@ const Summary = props => {
   ];
 
 
-//  this function to render header of procedures and taking procedure dummy data as parameter
-  const _renderHeader = (sections, _, isActive) => {
+{/**
+   * This is the _renderHeader method which makes use of render title of list .
+   * @param sections type of array .
+   * @param _ and isActive unused
+
+   * @return title of expandable list.
+ 
+*/}
+const _renderHeader = (sections, _, isActive) => {
     // console.log("sections.termID -->", sections.termID)
     return (
       <ScrollView style={css.renderView}>
@@ -166,8 +178,14 @@ const Summary = props => {
     );
   };
  
-// this function use  to render content from procedure step array and show below the procedure header
+{/**
+   * This is the _renderContent method which makes use of render content of list .
+   * @param sections type of array .
+   * @param _ and isActive unused
 
+   * @return content below the title of list.
+ 
+*/}
   const _renderContent = (sections, _, isActive) => {
     return (
       <View style={[css.renderView]}>
@@ -202,8 +220,14 @@ const Summary = props => {
     );
   };
 
-  // this function used to render header of page property and take pageproperty dummy data as parameter
+{/**
+   * This is the _pagerenderHeader method which makes use of render title of  page .
+   * @param sections type of array .
+   * @param _ and isActive unused
 
+   * @return title of expandable list.
+ 
+*/}
   const _pagerenderHeader = (sections, _, isActive) => {
     console.log("sections.termID -->", sections.name)
     return (
@@ -231,6 +255,15 @@ const Summary = props => {
     );
   };
 
+
+  {/**
+   * This is the _pagerenderContent method which makes use of render content of list .
+   * @param sections type of array .
+   * @param _ and isActive unused
+
+   * @return title of expandable list.
+ 
+*/}
   const _pagerenderContent = (sections, _, isActive) => {
     return (
       <View style={[css.renderView]} key={sections.key}>
@@ -381,6 +414,9 @@ const Summary = props => {
 
       <View
         style={css.pageView}>
+          
+          {/* expandable list using Accordian library */}
+
         <Accordion
           sections={pageProperty}
           activeSections={pageactiveSections}

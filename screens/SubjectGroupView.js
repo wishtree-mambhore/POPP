@@ -47,8 +47,14 @@ const Chapters = props => {
     });
   }, [props.navigation]);
 
-// this function used to render subjects title name and taking subjects group as parameter
+{/**
+   * This is the _renderHeader method which makes use of render title of list .
+   * @param sections type of array .
+   * @param _ and isActive unused
 
+   * @return title of expandable list.
+ 
+*/}
   const _renderHeader = (sections, _, isActive) => {
     // console.log('sections.termID -->', sections);
     return (
@@ -67,8 +73,14 @@ const Chapters = props => {
   };
 
 
-  // this function rendering content  from subjects group data and taking subjects group as parameter
+{/**
+   * This is the _renderContent method which makes use of render title of list .
+   * @param sections type of array .
+   * @param _ and isActive unused
 
+   * @return title of expandable list.
+ 
+*/}
   const _renderContent = (sections, _, isActive) => {
     return (
       <View>
@@ -90,6 +102,7 @@ const Chapters = props => {
   };
   return (
     <View style={css.body}>
+      {/* expandable list using Accordian library */}
       <Accordion
          sections={chapterArray}
          activeSections={activeSections}

@@ -14,6 +14,16 @@ import Recent from './Recent';
 import Colors from '../style/Colors';
 const Tab = createMaterialBottomTabNavigator();
 
+
+
+{/**
+   * This is the MyTabs used to show bottom tab navigation .
+   * @param nothing
+
+   * @return navigator and bottom tab screen
+ 
+*/}
+
 export const  MyTabs=()=> {
   return (
 
