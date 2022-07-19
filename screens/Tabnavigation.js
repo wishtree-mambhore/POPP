@@ -32,8 +32,12 @@ export const  MyTabs=()=> {
       activeColor={Colors.LIGHT}
       barStyle={{ backgroundColor: Colors.PRIMARY }}
       screenOptions={{
-        tabBarShowLabel:false
+        tabBarShowLabel:false,
+        
+        
+      
       }}
+      
       
     >
 
@@ -55,7 +59,9 @@ export const  MyTabs=()=> {
       <Tab.Screen
         name="Index"
         component={Index}
+        
         options={{
+      
           tabBarIcon: () => (
             <EvilIcons name="search" color={Colors.LIGHT} size={25} />
             ),

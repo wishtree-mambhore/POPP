@@ -11,8 +11,8 @@ import css from '../style/GlobalStyle';
 import SummaryChapter from './SummaryChapter';
 import StepScreen from './stepScreen';
 import ExplanatoryScreen from './ExplanatoryScreen';
-
-
+import Index from './Index';
+import { MyTabs } from './Tabnavigation';
 
 const Stack = createNativeStackNavigator();
 {  /**
@@ -28,7 +28,6 @@ const Navigation = () => {
       initialRouteName="Home"
       screenOptions={{
         headerTitleAlign: 'center',
-        headerShown: true,
         headerTitle: 'UNDP POLICY AREAS',
         headerTintColor: Colors.LIGHT,
         headerStyle: {
@@ -50,11 +49,27 @@ const Navigation = () => {
    }}
    
    />
+
+
+
+   <Stack.Screen name='Mytab' component={MyTabs} 
+   options={{
+    header:true,
+    headerTitle:'hello'
+   }}
+   
+   />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Chapters" component={Chapters} />
       <Stack.Screen name="SummaryChapter" component={SummaryChapter} />
       <Stack.Screen name="StepScreen" component={StepScreen} />
       <Stack.Screen name="ExplanatoryScreen" component={ExplanatoryScreen} />
+      <Stack.Screen name="Index" component={Index} 
+      options={{
+        title:'hello'
+
+      }}
+      />
 
 
     </Stack.Navigator>
