@@ -32,7 +32,6 @@ const Home = props => {
 
   const fetchData = async () => {
     let isMounted = true;
-    setisLoading(true);
     const res = await axios.get(urls.apiUrl).then(res => {
       if (isMounted) {
         setPolicyData(res.data);
@@ -54,14 +53,14 @@ const Home = props => {
     fetchData();
   }, []);
 
-  {/**
+ {/**
    * This is the _renderHeader method which makes use of render title of list .
    * @param sections type of array .
    * @param _ and isActive unused
 
    * @return title of expandable list.
  
-*/}
+*/} 
   const _renderHeader = (sections, _, isActive) => {
     return (
       <ScrollView style={css.renderView}>

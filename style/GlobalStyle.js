@@ -11,10 +11,32 @@ const css = StyleSheet.create({
     // alignItems:'center',
     // justifyContent:'center',
   },
+  headerTitleView:
+  {backgroundColor: Colors.PRIMARY, height: 50},
   horizontalLine: {
     height: 5,
-    borderBottomColor: 'black',
+    borderBottomColor: Colors.DARK,
     borderBottomWidth: 1,
+  },
+
+  SearchBarContainer:
+  { backgroundColor: Colors.LIGHT,
+    borderColor: Colors.PRIMARY,
+    borderWidth: 2,
+    borderTopColor: Colors.PRIMARY,
+    borderBottomColor: Colors.PRIMARY,
+
+    margin: 10,
+    padding: 5,
+    borderRadius: 5,
+    shadowOpacity: 3,
+  },
+  customHeaderText:
+  {
+    color: Colors.LIGHT,
+    fontSize: 20,
+    textAlign: 'center',
+    paddingTop: 10,
   },
   headingtext: {
     fontFamily:'MYRIADPROREGULAR',
@@ -28,6 +50,16 @@ const css = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     // padding: 10,
+  },
+
+  tabBar: {
+    borderWidth: 1,
+    borderColor: Colors.PRIMARY,
+    backgroundColor:'white',
+    height:45
+  },
+  indicatorStyle: {
+    backgroundColor: Colors.PRIMARY, height: '100%', 
   },
   flexItem: {
     flexDirection: 'row',
@@ -99,6 +131,13 @@ margin:10,
     textAlign:'center',
     numberOfLines:1,
    
+  },
+  HeaderTextTitle:
+  {
+    color: Colors.LIGHT,
+    fontSize: 20,
+    textAlign: 'center',
+    paddingTop: 10,
   },
 headerTitleText:
 {
