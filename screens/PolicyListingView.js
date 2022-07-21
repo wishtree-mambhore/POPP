@@ -274,17 +274,17 @@ const _renderHeader = (sections, _, isActive) => {
               <View style={{padding:10}} key={index}>
 
                   <Text style={css.pagepropertyText}>KEY WORDS</Text>
-                  <Text style={css.pagepropertyText}>{item.keyword}</Text>
+                  <Text style={css.pagepropertyInnerText}>{item.keyword}</Text>
                   <Text style={css.pagepropertyText}>FOCAL POINT</Text>
-                  <Text style={css.pagepropertyText}>{item.focalpoint}</Text>
+                  <Text style={css.pagepropertyInnerText}>{item.focalpoint}</Text>
                   <Text style={css.pagepropertyText}>EFFECTIVE DATE</Text>
-                  <Text style={css.pagepropertyText}>{item.EffectiveDate}</Text>
+                  <Text style={css.pagepropertyInnerText}>{item.EffectiveDate}</Text>
                   <Text style={css.pagepropertyText}>PLANNED REVIEW DATE </Text>
-                  <Text style={css.pagepropertyText}>{item.PlannedReviewaDate}</Text>
+                  <Text style={css.pagepropertyInnerText}>{item.PlannedReviewaDate}</Text>
                   <Text style={css.pagepropertyText}>SUMMARY OF CHANGES/COMMENTS</Text>
-                  <Text style={css.pagepropertyText}>{item.SummaryOfChangesCommets}</Text>
+                  <Text style={css.pagepropertyInnerText}>{item.SummaryOfChangesCommets}</Text>
                   <Text style={css.pagepropertyText}>VERSIONS#</Text>
-                  <Text style={css.pagepropertyText}>{item.Version}</Text>
+                  <Text style={css.pagepropertyInnerText}>{item.Version}</Text>
 
               </View>
             
@@ -322,7 +322,7 @@ const _renderHeader = (sections, _, isActive) => {
     });
   }, [props.navigation]);
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor:'white'}}>
       <View style={css.body}>
         <View
           style={css.bookmarkLanguageView}>
@@ -355,6 +355,12 @@ const _renderHeader = (sections, _, isActive) => {
           </View>
           <View style={{width: '50%'}}>
             <DropDownPicker
+             customItemLabelStyle={
+              {
+                color:'red',
+                fontSize:30
+              }
+             }
               open={open}
               value={value}
               items={items}

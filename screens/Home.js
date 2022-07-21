@@ -5,6 +5,8 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
+  
+  
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import css from '../style/GlobalStyle';
@@ -15,7 +17,8 @@ import axios from 'axios';
 import {LogBox} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {urls} from '../style/URL';
-
+import { useTheme } from '@react-navigation/native'
+import { StatusBar } from 'native-base';
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();
 const Home = props => {
@@ -53,6 +56,9 @@ const Home = props => {
     fetchData();
   }, []);
 
+  const theme = useTheme()
+
+
  {/**
    * This is the _renderHeader method which makes use of render title of list .
    * @param sections type of array .
@@ -63,33 +69,22 @@ const Home = props => {
 */} 
   const _renderHeader = (sections, _, isActive) => {
     return (
-      <ScrollView style={css.renderView}>
+      <ScrollView style={{paddingHorizontal:7, backgroundColor: theme.dark? css.darkBody.backgroundColor : 'white'}}>
+        <StatusBar barStyle={theme.dark? 'light-content':'dark-content'} backgroundColor={theme.dark ? 'black':'grey'}/>
         <View style={css.flexItem} key={sections.termID.toString()}>
           <View>
-            <FastImage
-              style={css.image}
-              source={{
-                cache: FastImage.cacheControl.cacheOnly,
-                priority: FastImage.priority.high,
+            <Image
+            style={css.image}
+            source={{
+              cache: FastImage.cacheControl.cacheOnly,
+              priority: FastImage.priority.high,
 
-                uri: urls.imageicon + sections.termID + '.png',
-              }}
-              onLoad={e => {
-                console.log(
-                  'loadin loaded ',
-                  e.nativeEvent.width,
-                  e.nativeEvent.height,
-                );
-              }}
-              onLoadEnd={e => console.log('Loading Ended')}
-              onLoadStart={e => console.log('Loading Start')}
-              onProgress={e =>
-                console.log(
-                  'Loading Progress ' +
-                    e.nativeEvent.loaded / e.nativeEvent.total,
-                )
-              }
-            />
+              uri: urls.imageicon + sections.termID + '.png',
+            }}
+       
+          />
+            
+           
           </View>
 
           <Text style={css.itemText}>{sections.name}</Text>
@@ -128,6 +123,7 @@ const Home = props => {
           return (
             <View style={css.accordianContainer} key={index}>
               <TouchableOpacity
+              key={index}
                 onPress={() =>
                   props.navigation.navigate('Chapters', {
                     data: item.subjectGroups,
@@ -151,7 +147,7 @@ const Home = props => {
     <SafeAreaView style={{flex: 1}}>
       {policyData.length == 0 ? (
         <ActivityIndicator
-          color={Colors.PRIMARY}
+          color={theme.dark?Colors.LIGHT:Colors.PRIMARY}
           size={40}
           style={{marginTop: 100}}
         />
@@ -165,6 +161,15 @@ const Home = props => {
             renderContent={_renderContent}
             onChange={setActiveSections}
             duration={400}
+            containerStyle={
+            {
+              backgroundColor: theme.dark? Colors.LIGHT : null
+            }
+            }
+            sectionContainerStyle={{
+              backgroundColor:theme.dark?'#2C3639':null
+            }}
+            
             touchableComponent={TouchableOpacity}
           />
         </ScrollView>

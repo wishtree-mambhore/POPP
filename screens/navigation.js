@@ -1,10 +1,9 @@
-import {View, Text} from 'react-native';
+import {View, Text, useColorScheme} from 'react-native';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Announcement from './Announcement';
 import Sum from './PolicyListingView';
-import Chapters from './SubjectGroupView';
+import Chapters from './Chapters';
 import Home from './Home';
 import Colors from '../style/Colors';
 import css from '../style/GlobalStyle';
@@ -12,10 +11,14 @@ import SummaryChapter from './SummaryChapter';
 import StepScreen from './stepScreen';
 import ExplanatoryScreen from './ExplanatoryScreen';
 import Index from './Index';
-import { MyTabs } from './Tabnavigation';
-
+import NewPolicyDetails from './newPoilcyDetail';
+import WhatsNew from './WhatsNew';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {MyTabs} from './Tabnavigation';
 const Stack = createNativeStackNavigator();
-{  /**
+{
+  /**
    * This is the Navigation function is used to create stack of screen and use for navigation of screen.
    * @param . nothing
    * @return Navigatior function from createNativeStackNAvigator .
@@ -40,38 +43,17 @@ const Navigation = () => {
           fontFamily: 'MYRIADPROREGULAR',
         },
       }}>
-      <Stack.Screen name='Sum'  component={Sum}
-   options={{
-    headerTitleStyle:
-    {
-    maxWidth:250
-    }
-   }}
-   
-   />
+      <Stack.Screen
+        name="Sum"
+        component={Sum}
+        options={({route}) => ({title: route.params.title})}
+      />
 
-
-
-   <Stack.Screen name='Mytab' component={MyTabs} 
-   options={{
-    header:true,
-    headerTitle:'hello'
-   }}
-   
-   />
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Chapters" component={Chapters} />
       <Stack.Screen name="SummaryChapter" component={SummaryChapter} />
       <Stack.Screen name="StepScreen" component={StepScreen} />
       <Stack.Screen name="ExplanatoryScreen" component={ExplanatoryScreen} />
-      <Stack.Screen name="Index" component={Index} 
-      options={{
-        title:'hello'
-
-      }}
-      />
-
-
+      <Stack.Screen name="Chapters" component={Chapters} />
     </Stack.Navigator>
   );
 };

@@ -1,4 +1,6 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import {useColorScheme,Appearance} from 'react-native';
+
 import { IconButton } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -8,11 +10,49 @@ import Navigation from './navigation';
 import React, {useState, useEffect} from 'react';
 import Home from './Home';
 import Index from './Index';
-import Announcement from './Announcement';
 import WhatsNew from './WhatsNew';
 import Recent from './Recent';
 import Colors from '../style/Colors';
+import css from '../style/GlobalStyle';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import NewPolicyDetails from './newPoilcyDetail';
+import { texts } from '../style/Text';
 const Tab = createMaterialBottomTabNavigator();
+const SettingsStack = createNativeStackNavigator();
+
+
+
+{/**
+   * This is the SettingsStackScreen used to stack navigation of whatsnew screen and detailsscreen .
+   * @param nothing
+
+   * @return stack navigator component
+ 
+*/}
+const  SettingsStackScreen=() =>{
+  return (
+    <SettingsStack.Navigator initialRouteName='WhatsNew '  screenOptions={{ headerTitleAlign: 'center',
+    headerTitle: texts.WhatsNew,
+    headerTintColor: Colors.LIGHT,
+    headerStyle: {
+      backgroundColor: Colors.PRIMARY,
+    },
+    headerTitleStyle: {
+      fontSize: 20,
+      color: Colors.LIGHT,
+      fontWeight: '300',
+      fontFamily: 'MYRIADPROREGULAR',
+    },}}>
+      <SettingsStack.Screen name="WhatsNew" component={WhatsNew} />
+      <SettingsStack.Screen name="NewPolicyDetails" component={NewPolicyDetails} 
+      options={{
+        headerTitle:'Hello'
+      }}
+      
+      />
+    </SettingsStack.Navigator>
+  );
+}
 
 
 
@@ -25,28 +65,26 @@ const Tab = createMaterialBottomTabNavigator();
 */}
 
 export const  MyTabs=()=> {
+ 
   return (
 
     <Tab.Navigator
-      initialRouteName="Navigation"
+      initialRouteName="navigation"
       activeColor={Colors.LIGHT}
       barStyle={{ backgroundColor: Colors.PRIMARY }}
       screenOptions={{
         tabBarShowLabel:false,
-        
-        
-      
+
       }}
-      
-      
     >
 
       <Tab.Screen
-        name="Navigation"
+        name="navigation"
         component={Navigation}
         
         
         options={{
+          
           tabBarLabel: 'Home',
           tabBarShowLabel:false,
           tabBarIcon: ({ color, size }) => (
@@ -56,20 +94,22 @@ export const  MyTabs=()=> {
 
         }}
       />
+      
       <Tab.Screen
         name="Index"
         component={Index}
         
         options={{
-      
+          tabBarShowLabel:true,
+       
           tabBarIcon: () => (
             <EvilIcons name="search" color={Colors.LIGHT} size={25} />
             ),
         }}
       />
         <Tab.Screen
-        name="Announcement"
-        component={Announcement}
+        name="Whatsnew"
+        component={SettingsStackScreen}
         options={{
           
           tabBarIcon: () => (
@@ -78,8 +118,8 @@ export const  MyTabs=()=> {
         }}
       />
       <Tab.Screen
-        name="WhatsNew"
-        component={WhatsNew}
+        name="Recent"
+        component={Recent}
         options={{
           tabBarIcon: ({ color }) => (
             <EvilIcons name="clock" color={Colors.LIGHT} size={27} />

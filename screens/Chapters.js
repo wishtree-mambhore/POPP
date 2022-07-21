@@ -113,7 +113,7 @@ const Chapters = props => {
          touchableComponent={TouchableOpacity}
        />
       {(subData.length  || subGroup.length)? 
-       <View>
+       <View style={{backgroundColor:'white'}}>
       {/* display of subject from chapter's data  */}
        {
          subjects.map((item,index)=>

@@ -10,8 +10,8 @@ import React, {useState} from 'react';
 import {texts} from '../style/Text';
 import Colors from '../style/Colors';
 import css from '../style/GlobalStyle';
-import {SearchBar} from 'react-native-elements';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import {SearchBar} from 'react-native-elements';  
+import {TabView, SceneMap, TabBar} from 'react-native-tab-view';   
 import CustomFlatList from './FlatList';
 
 {/*
@@ -72,7 +72,7 @@ const bookmarkdata = [
 ];
 
  {/**
-   * renderScene method which returns a react element to render as the page for the tab
+   *renderScene method which returns a react element to render as the page for the tab
 
    *@param   route as parameter      
 
@@ -92,6 +92,33 @@ const renderScene = ({route}) => {
 };
 
 const Index = props => {
+
+
+  React.useLayoutEffect(() => {
+    props.navigation.setOptions({
+      headerTitle: props => (
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          {...props}
+          style={{
+            color: Colors.LIGHT,
+            fontFamily: 'MARIADPROREGULAR',
+            fontSize: 18,
+            width: WIDTH - 150,
+            textAlign: 'center',
+          }}>
+          {texts.ExplanatoryNotes}
+        </Text>
+      ),
+
+      headerStyle: {
+        backgroundColor: Colors.PRIMARY,
+        //Set Header color
+      },
+    });
+  }, [props.navigation]);
+
 // layout variable use useWindowDimensions hooks  to provide width
   const layout = useWindowDimensions();
   const [searchtext, setSearchText] = useState('');
@@ -110,7 +137,7 @@ const Index = props => {
         <View style={css.headerTitleView}>
           <Text
             style={css.customHeaderText}>
-            INDEXES
+            {texts.IndexScreen}
           </Text>
         </View>
         {/*  Top search bar */}
@@ -148,6 +175,7 @@ const Index = props => {
 
       <TabView
         navigationState={{index, routes}}
+        swipeEnabled={false}
         renderScene={renderScene}
         renderTabBar={props => (
           <TabBar
