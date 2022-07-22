@@ -1,4 +1,4 @@
-import {View, Text, FlatList, StatusBar, ActivityIndicator,useColorScheme,Appearance } from 'react-native';
+import {View, Text, FlatList, StatusBar, ActivityIndicator,useColorScheme,Appearance, } from 'react-native';
 import React, {useEffect, useState, } from 'react';
 import {MyTabs} from './screens/Tabnavigation';
 import {NavigationContainer,DarkTheme,DefaultTheme , useTheme} from '@react-navigation/native';
@@ -23,35 +23,14 @@ const App = () => {
 
   }, []);
 
-  const [mode,setMode] = useState(false)
+  const isDark= useColorScheme()
 
-const CustomDefaulTheme={
-  ...DefaultTheme,
-  ...PaperDarkTheme,
-  colors:
-  {
-    ...DefaultTheme.colors,
-    ...PaperDefaultTheme.colors
-  }
 
-}
-
-const CustomDarkTheme={
-  ...DefaultTheme,
-  ...PaperDarkTheme,
-  colors:
-  {
-    ...DefaultTheme.colors,
-    ...PaperDefaultTheme.colors,
-    background:'black'
-  }
-
-}
 
   return (
 
-<NavigationContainer theme={mode?DarkTheme: DefaultTheme} >
-        <MyTabs />
+<NavigationContainer   >
+        <MyTabs  />
       </NavigationContainer>
 
 

@@ -5,17 +5,19 @@ import {
   TouchableOpacity,
   ScrollView,
   Linking,
-  Share
+  Share,useColorScheme
 } from 'react-native';
 import React, {useState, useCallback, version} from 'react';
 import {NativeBaseProvider} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
-
+import { useTheme } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Colors from '../style/Colors';
 import css from '../style/GlobalStyle';
 import Accordion from 'react-native-collapsible/Accordion';
+import { color } from 'react-native-elements/dist/helpers';
+import { texts } from '../style/Text';
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -26,12 +28,15 @@ const Summary = props => {
   const SubjectTitle = props?.route?.params?.title;
   const [activeSections, setActiveSections] = useState([]);
   const [pageactiveSections, setPageActiveSections] = useState([]);
+  const isDark=useColorScheme();
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    {label: 'Apple', value: 'apple'},
-    {label: 'Banana', value: 'banana'},
+    {label: 'English', value: 'English'},
+    {label: 'Spanish', value: 'Spanish'},
+    {label: 'French', value: 'French'},
+
   ]);
   const [iconFlag, setIconFlag] = useState(false);
  
@@ -166,9 +171,9 @@ const Summary = props => {
 const _renderHeader = (sections, _, isActive) => {
     // console.log("sections.termID -->", sections.termID)
     return (
-      <ScrollView style={css.renderView}>
+      <ScrollView style={css.renderView} key={sections.key}>
         <View style={{padding: 5}} key={sections.key}>
-          <Text style={css.mainProcedureText}>{sections.name}</Text>
+          <Text style={[css.mainProcedureText,{color: isDark==='dark'?Colors.policyText:Colors.PRIMARY}]}>{sections.name}</Text>
         </View>
 
         <View
@@ -188,25 +193,26 @@ const _renderHeader = (sections, _, isActive) => {
 */}
   const _renderContent = (sections, _, isActive) => {
     return (
-      <View style={[css.renderView]}>
+      <View style={[css.renderView]} key={sections.key}>
         {sections.steps.map((item, index) => {
           return (
-            <View key={index}>
-              <View
+            <View>
+              <View 
+              
                 style={css.stepflex}>
-                <Text style={{paddingRight: 20}}>Step {index + 1}</Text>
-                <Entypo name={'user'} color={Colors.Grey} size={15} />
-                <Text numberOfLines={2} style={{width: '70%'}}>
+                <Text style={{paddingRight: 20, color:isDark==='dark'?Colors.policyText:Colors.Grey}}>Step {index + 1}</Text>
+                <Entypo name={'user'} color={isDark==='dark'?Colors.policyText:Colors.Grey} size={15} />
+                <Text numberOfLines={2} style={{width: '70%', color:isDark==='dark'?Colors.policyText:Colors.Grey}}  >
                   {item.stepname}
                 </Text>
               </View>
               <View style={{padding: 10}}>
-                <Text>{item.brief}</Text>
+                <Text style={{color:isDark==='dark'?Colors.policyText:Colors.Grey}}>{item.brief}</Text>
               </View>
               <TouchableOpacity
                 onPress={() =>props.navigation.navigate('StepScreen',{title: `Step ${index+1}`, procTitle:item.stepname,brief:item.brief })}>
-                <Text style={css.readMore}>
-                  Read more
+                <Text style={[css.readMore, {color:isDark==='dark'?Colors.btnColor:Colors.PRIMARY}]}>
+                  {texts.ReadMore}
                 </Text>
               </TouchableOpacity>
 
@@ -229,15 +235,14 @@ const _renderHeader = (sections, _, isActive) => {
  
 */}
   const _pagerenderHeader = (sections, _, isActive) => {
-    console.log("sections.termID -->", sections.name)
     return (
-      <ScrollView style={css.renderView}>
+      <View style={[css.renderView,{backgroundColor:isDark==='dark'?Colors.darkGray:Colors.LightGray}]}>
         <View style={{padding: 5}}>
           {
             sections.map((item,index)=>
             {
               return(
-                <Text style={css.pageHeaderText}>{item.name}</Text>
+                <Text key={index} style={[css.pageHeaderText, {color:isDark==='dark'?Colors.LightGray:Colors.PRIMARY}]}>{item.name}</Text>
 
               )
             })
@@ -247,11 +252,11 @@ const _renderHeader = (sections, _, isActive) => {
         <View
           style={{
             height: 5,
-            borderBottomColor: Colors.DARK,
+            borderBottomColor:isDark==='dark'? Colors.LIGHT:Colors.DARK,
             borderBottomWidth: 1,
           }}
         />
-      </ScrollView>
+      </View>
     );
   };
 
@@ -271,20 +276,20 @@ const _renderHeader = (sections, _, isActive) => {
           sections.map((item,index)=>
           {
             return(
-              <View style={{padding:10}} key={index}>
+              <View style={{ backgroundColor:isDark==='dark'?Colors.darkGray:Colors.LightGray }} key={index}>
 
-                  <Text style={css.pagepropertyText}>KEY WORDS</Text>
-                  <Text style={css.pagepropertyInnerText}>{item.keyword}</Text>
-                  <Text style={css.pagepropertyText}>FOCAL POINT</Text>
-                  <Text style={css.pagepropertyInnerText}>{item.focalpoint}</Text>
-                  <Text style={css.pagepropertyText}>EFFECTIVE DATE</Text>
-                  <Text style={css.pagepropertyInnerText}>{item.EffectiveDate}</Text>
-                  <Text style={css.pagepropertyText}>PLANNED REVIEW DATE </Text>
-                  <Text style={css.pagepropertyInnerText}>{item.PlannedReviewaDate}</Text>
-                  <Text style={css.pagepropertyText}>SUMMARY OF CHANGES/COMMENTS</Text>
-                  <Text style={css.pagepropertyInnerText}>{item.SummaryOfChangesCommets}</Text>
-                  <Text style={css.pagepropertyText}>VERSIONS#</Text>
-                  <Text style={css.pagepropertyInnerText}>{item.Version}</Text>
+                  <Text style={[css.pagepropertyText,{color:isDark==='dark'?Colors.pagepropertyTextColor:Colors.DARK}]}>KEY WORDS</Text>
+                  <Text style={[css.pagepropertyInnerText,{color:isDark==='dark'?Colors.pagepropertyInnerTextColor:Colors.Grey}]}>{item.keyword}</Text>
+                  <Text style={[css.pagepropertyText,{color:isDark==='dark'?Colors.pagepropertyTextColor:Colors.DARK}]}>FOCAL POINT</Text>
+                  <Text style={[css.pagepropertyInnerText,{color:isDark==='dark'?Colors.pagepropertyInnerTextColor:Colors.Grey}]}>{item.focalpoint}</Text>
+                  <Text style={[css.pagepropertyText,{color:isDark==='dark'?Colors.pagepropertyTextColor:Colors.DARK}]}>EFFECTIVE DATE</Text>
+                  <Text style={[css.pagepropertyInnerText,{color:isDark==='dark'?Colors.pagepropertyInnerTextColor:Colors.Grey}]}>{item.EffectiveDate}</Text>
+                  <Text style={[css.pagepropertyText,{color:isDark==='dark'?Colors.pagepropertyTextColor:Colors.DARK}]}>PLANNED REVIEW DATE </Text>
+                  <Text style={[css.pagepropertyInnerText,{color:isDark==='dark'?Colors.pagepropertyInnerTextColor:Colors.Grey}]}>{item.PlannedReviewaDate}</Text>
+                  <Text style={[css.pagepropertyText,{color:isDark==='dark'?Colors.pagepropertyTextColor:Colors.DARK}]}>SUMMARY OF CHANGES/COMMENTS</Text>
+                  <Text style={[css.pagepropertyInnerText,{color:isDark==='dark'?Colors.pagepropertyInnerTextColor:Colors.Grey}]}>{item.SummaryOfChangesCommets}</Text>
+                  <Text style={[css.pagepropertyText,{color:isDark==='dark'?Colors.pagepropertyTextColor:Colors.DARK}]}>VERSIONS#</Text>
+                  <Text style={[css.pagepropertyInnerText,{color:isDark==='dark'?Colors.pagepropertyInnerTextColor:Colors.Grey}]}>{item.Version}</Text>
 
               </View>
             
@@ -322,13 +327,17 @@ const _renderHeader = (sections, _, isActive) => {
     });
   }, [props.navigation]);
   return (
-    <ScrollView style={{backgroundColor:'white'}}>
-      <View style={css.body}>
+
+
+
+
+<ScrollView  style={{backgroundColor:isDark==='dark'?Colors.DARK:LIGHT}} >
+  <View style={[css.body,]} >
         <View
-          style={css.bookmarkLanguageView}>
+          style={[css.bookmarkLanguageView,]}>
           <View
-            style={css.bookmarkIconView}>
-            <Text style={{fontSize: 19, color: Colors.DARK}}>Bookmark</Text>
+            style={[css.bookmarkIconView,{backgroundColor:isDark==='dark'?Colors.darkGray:null}]}>
+            <Text style={{fontSize: 19, color: isDark==='dark'? Colors.policyText:Colors.DARK}}>Bookmark</Text>
             {iconFlag ? (
               <TouchableOpacity
                 onPress={() => {
@@ -336,7 +345,7 @@ const _renderHeader = (sections, _, isActive) => {
                 }}>
                 <Ionicons
                   name={'md-star-sharp'}
-                  color={Colors.PRIMARY}
+                  color={ isDark==='dark'?Colors.LIGHT: Colors.PRIMARY}
                   size={22}
                 />
               </TouchableOpacity>
@@ -347,19 +356,27 @@ const _renderHeader = (sections, _, isActive) => {
                 }}>
                 <Ionicons
                   name={'star-outline'}
-                  color={Colors.PRIMARY}
+                  color={isDark==='dark'?Colors.LIGHT: Colors.PRIMARY}
                   size={22}
                 />
               </TouchableOpacity>
             )}
           </View>
-          <View style={{width: '50%'}}>
             <DropDownPicker
-             customItemLabelStyle={
-              {
-                color:'red',
-                fontSize:30
-              }
+            listMode='SCROLLVIEW'
+            containerStyle={{
+              width:'50%'
+            }}
+           
+            
+            labelStyle={{
+              color:isDark==='dark'?Colors.policyText:Colors.LIGHT,
+              fontSize:18
+            }}
+
+             
+             dropDownDirection={
+              'BOTTOM'
              }
               open={open}
               value={value}
@@ -367,42 +384,43 @@ const _renderHeader = (sections, _, isActive) => {
               setOpen={setOpen}
               setValue={setValue}
               setItems={setItems}
+              theme={isDark==='dark'?'DARK':'LIGHT'}
+             
               style={{
                 borderRadius: 0,
                 borderColor: Colors.PRIMARY,
               }}
               disableBorderRadius={true}
             />
-          </View>
         </View>
 
         <View
-          style={css.relevantRegulationView}>
-          <Text style={{textAlignVertical: 'bottom', color: Colors.PRIMARY}}>
+          style={[css.relevantRegulationView,{backgroundColor:isDark==='dark'? Colors.darkGray:Colors.LightBlue}]}>
+          <Text style={{textAlignVertical: 'bottom', color: isDark==='dark'?Colors.policyText:Colors.PRIMARY}}>
             RELEVANT REGULATIONS AND RULES
           </Text>
         </View>
         <View
-          style={css.policieView}>
+          style={[css.policieView,{backgroundColor:isDark==='dark'? Colors.darkGray:Colors.LightGray}]}>
           <Text
-            style={css.policiesText}>
+            style={[css.policiesText,{color: isDark==='dark'?Colors.policyText:Colors.PRIMARY}]}>
             Policies
           </Text>
-          <Text style={css.mainPolicyText}>
+          <Text style={[css.mainPolicyText, {color: isDark==='dark'?Colors.policyText:Colors.PRIMARY}]}>
             main policy
           </Text>
-          <Text style={css.mainPolicyText}>
+          <Text style={[css.mainPolicyText,{color: isDark==='dark'?Colors.policyText:Colors.PRIMARY}]}>
             Related policy
           </Text>
         </View>
 
         <View
-          style={css.procedureView}>
+          style={[css.procedureView,{backgroundColor:isDark==='dark'? Colors.darkGray:Colors.LightBlue}]}>
           <Text
-            style={css.procedureText}>
+            style={[css.procedureText, {color: isDark==='dark'?Colors.policyText:Colors.PRIMARY} ]}>
             PROCEDURES
           </Text>
-          <Text style={{padding: 5}}>MAIN PROCEDURES</Text>
+          <Text style={{padding: 5,color: isDark==='dark'?Colors.policyText:Colors.DARK}}>MAIN PROCEDURES</Text>
           <View>
             <Accordion
               sections={procedre}
@@ -415,16 +433,19 @@ const _renderHeader = (sections, _, isActive) => {
             />
           </View>
         </View>
-       
-      </View>
 
+        
+        
+  </View>
       <View
+      key={item=>item.id}
         style={css.pageView}>
           
           {/* expandable list using Accordian library */}
 
         <Accordion
           sections={pageProperty}
+          key={item=>pageProperty.key}
           activeSections={pageactiveSections}
           renderHeader={_pagerenderHeader}
           renderContent={_pagerenderContent}
@@ -433,7 +454,15 @@ const _renderHeader = (sections, _, isActive) => {
           touchableComponent={TouchableOpacity}
         />
       </View>
-    </ScrollView>
+      </ScrollView>
+
+
+     
+     
+
+
+    
+   
   );
 };
 

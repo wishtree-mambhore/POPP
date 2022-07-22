@@ -5,8 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
-  
-  
+  useColorScheme
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import css from '../style/GlobalStyle';
@@ -18,16 +17,17 @@ import {LogBox} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {urls} from '../style/URL';
 import { useTheme } from '@react-navigation/native'
-import { StatusBar } from 'native-base';
+import { StatusBar, theme } from 'native-base';
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();
 const Home = props => {
+  const isDark=useColorScheme()
   const [activeSections, setActiveSections] = useState([]);
-
+ const theme =useTheme()
   const [policyData, setPolicyData] = useState([]);
   {
     /*  
-     * This is the fetchData method which makes use of fetching data froms erver.
+     * This is the fetchDataS method which makes use of fetching data froms erver.
      * @param apiUrl used from urls global file.
      * @return ismounted .
      */
@@ -56,7 +56,6 @@ const Home = props => {
     fetchData();
   }, []);
 
-  const theme = useTheme()
 
 
  {/**
@@ -68,9 +67,10 @@ const Home = props => {
  
 */} 
   const _renderHeader = (sections, _, isActive) => {
+    
     return (
-      <ScrollView style={{paddingHorizontal:7, backgroundColor: theme.dark? css.darkBody.backgroundColor : 'white'}}>
-        <StatusBar barStyle={theme.dark? 'light-content':'dark-content'} backgroundColor={theme.dark ? 'black':'grey'}/>
+      <ScrollView style={{paddingHorizontal:7, backgroundColor: isDark==='dark'? Colors.DARK: Colors.LIGHT}}>
+        <StatusBar barStyle={isDark==='dark'? 'light-content':'dark-content'} backgroundColor={isDark==='dark' ? Colors.DARK:Colors.Grey}/>
         <View style={css.flexItem} key={sections.termID.toString()}>
           <View>
             <Image
@@ -87,7 +87,7 @@ const Home = props => {
            
           </View>
 
-          <Text style={css.itemText}>{sections.name}</Text>
+          <Text style={[css.itemText, {color: isDark==='dark'?Colors.Grey:Colors.PRIMARY}]}>{sections.name}</Text>
           {/* navigate to webview page */}
           <TouchableOpacity
             style={css.iconOnpress}
@@ -131,7 +131,7 @@ const Home = props => {
                     subjects: item.subjects,
                   })
                 }>
-                <Text style={css.accordianText} numberOfLines={1}>
+                <Text style={[css.accordianText,{color:isDark==='dark'?Colors.LightGray:Colors.Grey}]} numberOfLines={1}>
                   {item.name}
                 </Text>
               </TouchableOpacity>
@@ -147,7 +147,7 @@ const Home = props => {
     <SafeAreaView style={{flex: 1}}>
       {policyData.length == 0 ? (
         <ActivityIndicator
-          color={theme.dark?Colors.LIGHT:Colors.PRIMARY}
+          color={isDark==='dark'?Colors.LIGHT:Colors.PRIMARY}
           size={40}
           style={{marginTop: 100}}
         />
@@ -163,11 +163,11 @@ const Home = props => {
             duration={400}
             containerStyle={
             {
-              backgroundColor: theme.dark? Colors.LIGHT : null
+              backgroundColor: isDark==='dark'? Colors.Grey : null
             }
             }
             sectionContainerStyle={{
-              backgroundColor:theme.dark?'#2C3639':null
+              backgroundColor:isDark==='dark'?'#6B778D':Colors.LightGray
             }}
             
             touchableComponent={TouchableOpacity}

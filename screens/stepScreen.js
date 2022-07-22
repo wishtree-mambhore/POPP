@@ -5,13 +5,14 @@ import { View, Text ,
 import React from 'react'
 import Colors from '../style/Colors';
 import css from '../style/GlobalStyle';
+import { useTheme } from '@react-navigation/native';
 const WIDTH = Dimensions.get('window').width;
 
 const StepScreen = (props) => {
     const stepname = props?.route?.params?.title;  //step  name from policylisting view
     const procTitle = props?.route?.params?.procTitle;   //procedure title from policylisting view
     const brief =props?.route?.params?.brief       // brief props from policylisting area view
-
+    const theme =useTheme();
    // custom header by providing step title props
 
 
@@ -36,22 +37,22 @@ const StepScreen = (props) => {
       }, [props.navigation]);
   return (
     <View style={{margin:15}}>
-      <Text style={{paddingBottom:5,fontSize:15 ,color:Colors.DARK}}>PROCEDURE TITLE</Text>
-      <Text  style={{paddingBottom:5,fontSize:13}}>{procTitle}</Text>
-      <Text  style={{paddingBottom:5,fontSize:15,color:Colors.DARK}}>{stepname}</Text>
+      <Text style={{paddingBottom:5,fontSize:15 ,color:theme.dark?Colors.stepScreenText: Colors.DARK}}>PROCEDURE TITLE</Text>
+      <Text  style={{paddingBottom:5,fontSize:13 , }}>{procTitle}</Text>
+      <Text  style={{paddingBottom:5,fontSize:15,color:theme.dark?Colors.stepScreenText: Colors.DARK}}>{stepname}</Text>
       <Text  style={{paddingBottom:7,fontSize:13}}>{brief}</Text>
-      <Text style={{paddingBottom:5,fontSize:15,color:Colors.DARK}}>RESPONSIBLE PARTY</Text>
-      <Text  style={{paddingBottom:5,fontSize:13}}>{procTitle}</Text>
+      <Text style={{paddingBottom:5,fontSize:15,color:theme.dark?Colors.stepScreenText: Colors.DARK}}>RESPONSIBLE PARTY</Text>
+      <Text  style={{paddingBottom:5,fontSize:13 ,}}>{procTitle}</Text>
       <View style={{marginBottom:7}}>
-      <Text style={{paddingBottom:7,fontSize:15,color:Colors.DARK}}>TEMPLATE/GUIDELINE</Text>
+      <Text style={{paddingBottom:7,fontSize:15,color:theme.dark?Colors.stepScreenText: Colors.DARK}}>TEMPLATE/GUIDELINE</Text>
       <TouchableOpacity>
-        <Text style={{color:Colors.PRIMARY,padding:5}}>Document Link</Text>
+        <Text style={{color:theme.dark?Colors.btnColor: Colors.PRIMARY,padding:5 }}>Document Link</Text>
       </TouchableOpacity>
       <TouchableOpacity >
-      <Text style={{color:Colors.PRIMARY,padding:5}}>Document Link</Text>
+      <Text style={{color:theme.dark?Colors.btnColor: Colors.PRIMARY,padding:5}}>Document Link</Text>
       </TouchableOpacity>
       <TouchableOpacity>
-      <Text style={{color:Colors.PRIMARY,padding:5}}>Document Link</Text>
+      <Text style={{color:theme.dark?Colors.btnColor: Colors.PRIMARY,padding:5}}>Document Link</Text>
       </TouchableOpacity>
       </View>
       <TouchableOpacity style={{backgroundColor:Colors.PRIMARY ,alignItems:'center',padding:10}} onPress={()=>props.navigation.navigate('ExplanatoryScreen')}>

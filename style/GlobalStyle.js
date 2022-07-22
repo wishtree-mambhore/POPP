@@ -2,13 +2,12 @@ import {StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
 import Colors from './Colors';
 import {color} from 'react-native-elements/dist/helpers';
-import { theme } from 'native-base';
 const WIDTH = Dimensions.get('window').width;
-
 const css = StyleSheet.create({
+
   body: {
     flex: 1,
-    backgroundColor: Colors.LIGHT,
+    // backgroundColor: Colors.LIGHT,
 
     // alignItems:'center',
     // justifyContent:'center',
@@ -30,6 +29,8 @@ const css = StyleSheet.create({
     borderWidth: 2,
     borderTopColor: Colors.PRIMARY,
     borderBottomColor: Colors.PRIMARY,
+    borderEndWidth:1,
+    borderLeftWidth:1,
 
     margin: 10,
     padding: 5,
@@ -63,7 +64,6 @@ const css = StyleSheet.create({
     height: 45,
   },
   indicatorStyle: {
-    backgroundColor: Colors.PRIMARY,
     height: '100%',
   },
   flexItem: {
@@ -115,7 +115,7 @@ const css = StyleSheet.create({
     fontSize: 15,
     width: '70%',
     paddingLeft: 7,
-    color: '#01426c',
+    color:   '#01426c',
     fontWeight: '400',
     textTransform: 'uppercase',
   },
@@ -214,10 +214,11 @@ const css = StyleSheet.create({
     foreground: '#000',
   },
   pageView: {
-    backgroundColor: '#e9ecef',
+    // backgroundColor: '#e9ecef',
     margin: 7,
     borderRadius: 10,
-    height: '100%',
+    
+    
   },
   procedureText: {
     textAlignVertical: 'bottom',
@@ -315,14 +316,48 @@ const css = StyleSheet.create({
   WhatsnewView: {
     margin: 10,
   },
+  lastAccessed:
+  {
+    fontSize:11,
+paddingBottom:5,
+textAlign:'right',
+
+},
+recentViewHorizantal:
+{
+  height: 5,
+  borderBottomWidth: 2,
+  marginHorizontal: 5,
+  borderBottomColor: Colors.Grey,
+},
+recentPolicyText:
+{
+  paddingBottom:10,marginLeft:6
+},
+recentDateTextView:
+
+  {backgroundColor: '#2664A8', padding: 5}
+,
+recentView:
+{height: '100%', margin: 15},
+recentDateText:
+{
+  color: Colors.LIGHT,
+  fontWeight: 'bold',
+  fontSize: 15,
+  textAlign: 'justify',
+},
 
   pagepropertyText: {
     paddingBottom: 5,
     color: Colors.DARK,
+    marginHorizontal:10
   },
   pagepropertyInnerText: {
     paddingBottom: 5,
     color: Colors.Grey,
+    marginHorizontal:10
+
   },
   stepHorizontal: {
     height: 5,

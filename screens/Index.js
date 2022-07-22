@@ -5,6 +5,7 @@ import {
   Animated,
   useWindowDimensions,
   StyleSheet,
+  useColorScheme
 } from 'react-native';
 import React, {useState} from 'react';
 import {texts} from '../style/Text';
@@ -13,6 +14,7 @@ import css from '../style/GlobalStyle';
 import {SearchBar} from 'react-native-elements';  
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';   
 import CustomFlatList from './FlatList';
+import {useTheme} from '@react-navigation/native'
 
 {/*
 This is dummy data to show list of item unde allpolicy tab
@@ -31,15 +33,15 @@ const allpolicyData = [
     title: 'Third  policy 3',
   },
   {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    id: '58694a0f-3da1-471f-bd96-14785555deer',
     title: 'Third  policy 4',
   },
   {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    id: '58694a0f-3da1-471f-bd96-flfkf44fffff',
     title: 'Third  policy 5',
   },
   {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    id: '58694a0f-3da1-471f-bd96-14557fff1e29d72',
     title: 'Third  policy 6',
   },
 ];
@@ -58,15 +60,15 @@ const bookmarkdata = [
     title: 'Second bookmark Item',
   },
   {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    id: '58694a0f-3da1-471f-bd96-145571e2f9d72',
     title: 'Third bookmark Item',
   },
   {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    id: '58694a0f-3da1-471f-bd96-14557re29d72',
     title: 'fourth bookmark Item',
   },
   {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    id: '58694a0f-3da1-471f-bd96-1455761e29d72',
     title: 'Fifth bookmark Item',
   },
 ];
@@ -122,6 +124,8 @@ const Index = props => {
 // layout variable use useWindowDimensions hooks  to provide width
   const layout = useWindowDimensions();
   const [searchtext, setSearchText] = useState('');
+  const theme=useTheme();
+  const isDark=useColorScheme();
  
 // a number representing the index of the active route in the routes array
   const [index, setIndex] = React.useState(0);
@@ -132,8 +136,8 @@ const Index = props => {
   ]);
 
   return (
-    <View style={css.body}>
-      <View style={{backgroundColor: 'white'}}>
+    <View style={[css.body,{backgroundColor:isDark==='dark'? Colors.DARK:Colors.LIGHT }]}>
+      <View style={{backgroundColor:isDark==='dark'? Colors.DARK:Colors.LIGHT }}>
         <View style={css.headerTitleView}>
           <Text
             style={css.customHeaderText}>
@@ -147,24 +151,31 @@ const Index = props => {
             setSearchText(value);
           }}
           lightTheme
+          theme={ isDark==='dark'?'dark':'default'}
           placeholder="Search"
-          inputContainerStyle={{backgroundColor: '#FFFFFF', height: 30}}
-          containerStyle={css.SearchBarContainer}
+          inputContainerStyle={{backgroundColor:isDark==='dark'?Colors.Grey: Colors.LIGHT, height: 30}}
+          containerStyle={[css.SearchBarContainer,{backgroundColor:isDark==='dark'?Colors.Grey:Colors.LIGHT,}]}
           inputStyle={{
-            backgroundColor: Colors.LIGHT
+            backgroundColor:isDark==='dark'?Colors.Grey: Colors.LIGHT,
+            color:isDark==='dark'?'#ECECEC':Colors.DARK,
+          
+          
+          
           }}
           leftIconContainerStyle={{
-            color: Colors.LIGHT,
+            // color: isDark==='dark'?Colors.Grey:Colors.LIGHT,
           }}
+          placeholderTextColor={isDark==='dark'?Colors.placeholderTextColor:Colors.DARK}
+          
           clearIcon={{
             type: 'material-community',
             color: Colors.DARK,
-            backgroundColor: Colors.LIGHT,
+            // backgroundColor: Colors.LIGHT,
             name: 'close',
             size: 25,
-            containerStyle: {
-              backgroundColor: Colors.LIGHT,
-            },
+            // containerStyle: {
+            //   backgroundColor: Colors.LIGHT,
+            // },
           }}
           searchIcon={{
             size: 25,
@@ -182,14 +193,23 @@ const Index = props => {
             {...props}
             renderLabel={({focused, route}) => {
               if (focused) {
-                return <Text style={{color: Colors.LIGHT}}>{route.title}</Text>;
+                return <Text style={{color:isDark==='dark'?Colors.LIGHT: Colors.LIGHT}}>{route.title}</Text>;
               } else {
                 return (
-                  <Text style={{color: Colors.PRIMARY}}>{route.title}</Text>
+                  <Text style={{color:isDark==='dark'?Colors.LIGHT:Colors.PRIMARY}}>{route.title}</Text>
                 );
               }
             }}
-            indicatorStyle={css.indicatorStyle}
+          
+            
+            indicatorContainerStyle={{
+              backgroundColor:isDark==='dark'?Colors.indicatorContainerStyle:Colors.LIGHT
+            ,
+            borderEndWidth:2,
+            borderEndColor:Colors.PRIMARY
+            
+            }}
+            indicatorStyle={[css.indicatorStyle,{backgroundColor:isDark==='dark'? Colors.Grey :Colors.PRIMARY}]}
             style={css.tabBar}
           />
         )}
@@ -197,7 +217,7 @@ const Index = props => {
         initialLayout={{width: layout.width}}
         style={{
           margin: 10,
-          backgroundColor: 'white',
+          backgroundColor: isDark==='dark'? Colors.tabStyle: Colors.LIGHT
         }}
       />
     </View>

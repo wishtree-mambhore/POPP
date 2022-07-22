@@ -4,6 +4,7 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
+  useColorScheme
 } from 'react-native';
 import React, {useState, useCallback, useEffect} from 'react';
 import axios from 'axios';
@@ -43,6 +44,8 @@ const WhatsNew = props => {
   const [page, setPage] = useState(1);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const theme=useTheme();
+  const isDark=useColorScheme();
+
 
 
   {
@@ -111,7 +114,7 @@ const WhatsNew = props => {
   }, []);
 
   return (
-    <View style={[css.body,{backgroundColor: theme.dark? css.darkBody.backgroundColor: Colors.LIGHT}]}>
+    <View style={[css.body,{backgroundColor:isDark==='dark'?Colors.DARK:Colors.LIGHT}]}>
     
       {!isLoading ? (
         <FlatList
@@ -125,9 +128,9 @@ const WhatsNew = props => {
             return (
               <View style={css.WhatsnewView}>
                 <TouchableOpacity onPress={()=>props.navigation.navigate('NewPolicyDetails',{title:item.item.title,desc:item.item.body,date:texts.EffectiveDate})}>
-                  <Text style={[css.whtsnewTitle,{color:theme.dark?'#2C3639':Colors.PRIMARY}]}>{item.item.title}</Text>
-                  <Text style={[css.desc,{color:theme.dark?'#E7F6F2':Colors.PRIMARY}]}>{item.item.body}</Text>
-                  <Text numberOfLines={3} style={[css.whtsnewEffectiveDate,{color:theme.dark?'#E7F6F2':Colors.PRIMARY}]}>
+                  <Text style={[css.whtsnewTitle,{color:isDark==='dark'?Colors.LightGray:Colors.PRIMARY}]}>{item.item.title}</Text>
+                  <Text style={[css.desc,{color:isDark==='dark'?'#A4B494':Colors.DARK}]}>{item.item.body}</Text>
+                  <Text numberOfLines={3} style={[css.whtsnewEffectiveDate,{color:isDark==='dark'?'#E7F6F2':Colors.PRIMARY}]}>
                     {' '}
                    {texts.EffectiveDate}
                   </Text>

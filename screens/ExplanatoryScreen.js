@@ -1,11 +1,11 @@
-import {View, Text, Dimensions} from 'react-native';
+import {View, Text, Dimensions,useColorScheme} from 'react-native';
 import React from 'react';
 import Colors from '../style/Colors';
 import {texts} from '../style/Text';
 const WIDTH = Dimensions.get('window').width;
 
 const ExplanatoryScreen = props => {
-
+const isDark=useColorScheme()
 
 // this function used to show header 
   React.useLayoutEffect(() => {

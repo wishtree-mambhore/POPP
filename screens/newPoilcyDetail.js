@@ -7,11 +7,12 @@
    */
 }
 
-import { View, Text,Dimensions } from 'react-native'
+import { View, Text,Dimensions,useColorScheme } from 'react-native'
 import React ,{useState}from 'react'
 import css from '../style/GlobalStyle';
 import Colors from '../style/Colors';
 import { texts } from '../style/Text';
+import  {useTheme} from '@react-navigation/native'
 
 
 const NewPolicyDetails = props => {
@@ -19,6 +20,8 @@ const NewPolicyDetails = props => {
     const policyDetail = props?.route?.params?.desc;
     const effectiveDate=props?.route?.params?.date;
     const WIDTH = Dimensions.get('window').width;
+    const  theme=useTheme();
+    const isDark=useColorScheme();
 
 
 
@@ -48,13 +51,13 @@ const NewPolicyDetails = props => {
     }, [props.navigation]);
  
   return (
-    <View>
+    <View style={{backgroundColor:isDark==='dark'?Colors.DARK:Colors.LIGHT,flex:1}}>
          
-      <Text style={{color:Colors.DARK, fontSize:14 ,textTransform:'uppercase',padding:10}}>{effectiveDate}</Text>
-      <Text style={css.newPolicyDetailDesc}>{policyDetail}</Text>
+      <Text style={{color:isDark==='dark'?Colors.LIGHT: Colors.DARK, fontSize:14 ,textTransform:'uppercase',padding:10}}>{effectiveDate}</Text>
+      <Text style={[css.newPolicyDetailDesc,{color:isDark==='dark'?Colors.Grey: Colors.DARK}]}>{policyDetail}</Text>
       <View style={css.newPolicyDetailHorizontal}/>
-      <Text style={css.newPolicyDetailDocument}>{texts.Document}</Text>
-      <Text style={css.newPolicyDetailDocumentLink}>{policyTitle}</Text>
+      <Text style={[css.newPolicyDetailDocument,{color:isDark==='dark'?Colors.LIGHT: Colors.DARK}]}>{texts.Document}</Text>
+      <Text style={[css.newPolicyDetailDocumentLink,{ color:isDark==='dark'?Colors.btnColor:Colors.PRIMARY}]}>{policyTitle}</Text>
     </View>
   )
 }
