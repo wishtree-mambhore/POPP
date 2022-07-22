@@ -13,10 +13,7 @@ const App = () => {
 
   useEffect(() => {
     SplashScreen.hide();
-    if(Appearance.getColorScheme()=='dark')
-    {
-      setMode(true)
-    }
+    
 
 
     
